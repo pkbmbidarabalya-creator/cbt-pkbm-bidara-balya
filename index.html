@@ -22,7 +22,7 @@
 
         .container { 
             width: 100%;
-            max-width: 500px; 
+            max-width: 480px; 
             background: #ffffff; 
             border-radius: 20px; 
             box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.4); 
@@ -62,24 +62,55 @@
             padding: 11px 12px; 
             border: 1.5px solid #cbd5e1; 
             border-radius: 10px; 
-            font-size: 13px; /* Ukuran font lebih proporsional di HP */
+            font-size: 13px;
             outline: none;
             background-color: #f8fafc;
             color: #0f172a;
             font-weight: 500;
             transition: all 0.2s ease;
-            text-overflow: ellipsis; /* Agar opsi teks panjang rapi terpotong titik-titik jika penuh */
-        }
-        
-        select option {
-            font-size: 12px;
-            padding: 8px;
         }
 
         input[type="text"]:focus, select:focus { 
             border-color: #0284c7; 
             background-color: #ffffff;
             box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+        }
+
+        /* Box Pilihan Kelas & Semester Berbasis Tombol */
+        .selected-box {
+            background: #e0f2fe;
+            border: 1.5px dashed #0284c7;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            color: #0369a1;
+            font-weight: 700;
+            font-size: 13px;
+            margin-bottom: 14px;
+        }
+
+        .btn-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .btn-opt {
+            background: #f8fafc;
+            border: 1.5px solid #e2e8f0;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #334155;
+            cursor: pointer;
+            transition: 0.2s;
+            text-align: center;
+        }
+        .btn-opt:active, .btn-opt.selected {
+            background: #0284c7;
+            color: white;
+            border-color: #0284c7;
         }
 
         .btn-main { 
@@ -99,14 +130,11 @@
         .btn-main:active { transform: scale(0.98); }
 
         .btn-submit { background: linear-gradient(135deg, #10b981 0%, #059669 100%); box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3); }
-        
         .btn-back { background: #f1f5f9; color: #475569; padding: 9px 12px; font-size: 12px; font-weight: 600; margin-bottom: 12px; width: 100%; text-align: center; border: none; border-radius: 8px; cursor: pointer; }
-        .btn-back:active { background: #e2e8f0; }
 
         .card-info { background: #f8fafc; padding: 12px; border-radius: 10px; border: 1px solid #e2e8f0; margin-bottom: 12px; }
         .mapel-card { background: #ffffff; border: 1.5px solid #e2e8f0; padding: 14px; border-radius: 12px; margin-bottom: 10px; text-align: left; }
         .mapel-card h4 { margin: 0 0 8px 0; color: #0f172a; font-size: 14px; font-weight: 700; }
-        
         .mapel-btn { width: 100%; background: #0284c7; color: white; border: none; padding: 10px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; }
         
         .hidden { display: none; }
@@ -155,13 +183,11 @@
             line-height: 1.4;
         }
         .option-label input { margin-right: 8px; margin-top: 2px; min-width: 16px; min-height: 16px; accent-color: #0284c7; }
-        .option-label:active { background: #e0f2fe; border-color: #bae6fd; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <!-- Header Banner -->
     <div class="brand-header">
         <div class="brand-logo">📝</div>
         <h1>PKBM BIDARA BALYA</h1>
@@ -169,38 +195,32 @@
     </div>
 
     <div class="form-body">
-        <!-- LANGKAH 1: LOGIN SISWA & PILIH KELAS -->
+        <!-- LANGKAH 1: LOGIN SISWA -->
         <div id="step-login">
             <div class="form-group">
                 <label for="namaSiswa">Nama Lengkap Siswa</label>
                 <input type="text" id="namaSiswa" placeholder="Ketik nama lengkap sesuai absensi..." required>
             </div>
+
             <div class="form-group">
-                <label for="pilihSemester">Pilih Kelas & Semester</label>
-                <select id="pilihSemester">
-                    <option value="">-- Pilih Kelas & Semester --</option>
-                    <!-- PAKET A -->
-                    <option value="Kelas 4 - Semester 1">Paket A: Kelas IV - Semester 1</option>
-                    <option value="Kelas 4 - Semester 2">Paket A: Kelas IV - Semester 2</option>
-                    <option value="Kelas 5 - Semester 1">Paket A: Kelas V - Semester 1</option>
-                    <option value="Kelas 5 - Semester 2">Paket A: Kelas V - Semester 2</option>
-                    <option value="Kelas 6 - Semester 1">Paket A: Kelas VI - Semester 1</option>
-                    <option value="Kelas 6 - Semester 2">Paket A: Kelas VI - Semester 2</option>
-                    <!-- PAKET B -->
-                    <option value="Kelas 7 - Semester 1">Paket B: Kelas VII - Semester 1</option>
-                    <option value="Kelas 7 - Semester 2">Paket B: Kelas VII - Semester 2</option>
-                    <option value="Kelas 8 - Semester 1">Paket B: Kelas VIII - Semester 1</option>
-                    <option value="Kelas 8 - Semester 2">Paket B: Kelas VIII - Semester 2</option>
-                    <option value="Kelas 9 - Semester 1">Paket B: Kelas IX - Semester 1</option>
-                    <option value="Kelas 9 - Semester 2">Paket B: Kelas IX - Semester 2</option>
-                    <!-- PAKET C -->
-                    <option value="Kelas 10 - Semester 1">Paket C: Kelas X - Semester 1</option>
-                    <option value="Kelas 10 - Semester 2">Paket C: Kelas X - Semester 2</option>
-                    <option value="Kelas 11 - Semester 1">Paket C: Kelas XI - Semester 1</option>
-                    <option value="Kelas 11 - Semester 2">Paket C: Kelas XI - Semester 2</option>
-                    <option value="Kelas 12 - Semester 1">Paket C: Kelas XII - Semester 1</option>
-                    <option value="Kelas 12 - Semester 2">Paket C: Kelas XII - Semester 2</option>
-                </select>
+                <label>Pilih Kelas & Semester</label>
+                <div id="dispSelectedSem" class="selected-box">Belum Memilih Kelas</div>
+                
+                <!-- PILIHAN PAKET -->
+                <div id="opt-paket" class="btn-grid">
+                    <button class="btn-opt" onclick="pilihPaket('Paket A')">Paket A (SD)</button>
+                    <button class="btn-opt" onclick="pilihPaket('Paket B')">Paket B (SMP)</button>
+                    <button class="btn-opt" style="grid-column: span 2;" onclick="pilihPaket('Paket C')">Paket C (SMA)</button>
+                </div>
+
+                <!-- PILIHAN KELAS (DINAMIS) -->
+                <div id="opt-kelas" class="btn-grid hidden"></div>
+
+                <!-- PILIHAN SEMESTER -->
+                <div id="opt-semester" class="btn-grid hidden">
+                    <button class="btn-opt" onclick="pilihSemester('Semester 1')">Semester 1</button>
+                    <button class="btn-opt" onclick="pilihSemester('Semester 2')">Semester 2</button>
+                </div>
             </div>
 
             <div class="form-group">
@@ -212,10 +232,12 @@
                     <option value="Hari 3">Hari 3</option>
                 </select>
             </div>
+
             <div class="form-group">
                 <label for="tokenUjian">Token Ujian Harian</label>
                 <input type="text" id="tokenUjian" placeholder="Ketik token dari pengawas..." required>
             </div>
+
             <button class="btn-main" onclick="verifikasiToken()">Masuk Ruang Ujian 🚀</button>
         </div>
 
@@ -257,6 +279,40 @@
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxl-kk96fJ4mPazFjr4eVMUSs73Zcrr-LNuvnvd6ILGApqtQ8f66zZLk7vaiv7KtFvFcA/exec";
     const GITHUB_RAW_BASE = "https://raw.githubusercontent.com/pkbmbidarabalya-creator/pkbm-bidara-balya/main";
 
+    let tempPaket = "";
+    let tempKelas = "";
+    let finalKeySemester = "";
+
+    function pilihPaket(p) {
+        tempPaket = p;
+        const boxKelas = document.getElementById("opt-kelas");
+        boxKelas.innerHTML = "";
+        
+        let list = p === 'Paket A' ? ['Kelas 4', 'Kelas 5', 'Kelas 6'] :
+                   p === 'Paket B' ? ['Kelas 7', 'Kelas 8', 'Kelas 9'] : ['Kelas 10', 'Kelas 11', 'Kelas 12'];
+
+        list.forEach(k => {
+            boxKelas.innerHTML += `<button class="btn-opt" onclick="pilihKelas('${k}')">${k}</button>`;
+        });
+
+        document.getElementById("opt-paket").classList.add("hidden");
+        boxKelas.classList.remove("hidden");
+        document.getElementById("dispSelectedSem").innerText = p + " (Pilih Kelas)";
+    }
+
+    function pilihKelas(k) {
+        tempKelas = k;
+        document.getElementById("opt-kelas").classList.add("hidden");
+        document.getElementById("opt-semester").classList.remove("hidden");
+        document.getElementById("dispSelectedSem").innerText = `${tempKelas} (Pilih Semester)`;
+    }
+
+    function pilihSemester(s) {
+        finalKeySemester = `${tempKelas} - ${s}`;
+        document.getElementById("dispSelectedSem").innerText = `✓ ${tempPaket}: ${finalKeySemester}`;
+        document.getElementById("opt-semester").classList.add("hidden");
+    }
+
     const databaseLink = {
         "Kelas 5 - Semester 1": { 
             ujian: [
@@ -296,12 +352,12 @@
 
     function verifikasiToken() {
         const nama = document.getElementById("namaSiswa").value.trim();
-        const sem = document.getElementById("pilihSemester").value;
+        const sem = finalKeySemester;
         const hari = document.getElementById("pilihHari").value;
         const token = document.getElementById("tokenUjian").value.trim();
 
         if (!nama || !sem || !hari || !token) {
-            alert("Harap isi Nama, Kelas/Semester, Hari Ujian, dan Token!");
+            alert("Harap isi Nama, Pilih Kelas/Semester, Hari Ujian, dan Token!");
             return;
         }
 
