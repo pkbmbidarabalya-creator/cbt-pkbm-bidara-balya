@@ -1,564 +1,173 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>CBT Ujian Online - PKBM Bidara Balya</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        * { box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-        
-        body { 
-            background: #0f172a; 
-            background-image: 
-                radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.12) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.12) 0px, transparent 50%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 12px;
-        }
-
-        .container { 
-            width: 100%;
-            max-width: 480px; 
-            background: #ffffff; 
-            border-radius: 20px; 
-            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.4); 
-            overflow: hidden;
-            margin: 0 auto;
-        }
-
-        /* Banner Header */
-        .brand-header {
-            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
-            padding: 20px 16px;
-            color: white;
-            text-align: center;
-        }
-        .brand-logo {
-            width: 42px;
-            height: 42px;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(8px);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            margin: 0 auto 8px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-        .brand-header h1 { font-size: 16px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 2px; }
-        .brand-header p { font-size: 11px; color: #bae6fd; font-weight: 500; }
-
-        .form-body { padding: 18px 16px; }
-        .form-group { margin-bottom: 14px; text-align: left; }
-        label { display: block; font-weight: 700; margin-bottom: 5px; color: #334155; font-size: 12px; }
-        
-        input[type="text"], select { 
-            width: 100%; 
-            padding: 11px 12px; 
-            border: 1.5px solid #cbd5e1; 
-            border-radius: 10px; 
-            font-size: 13px;
-            outline: none;
-            background-color: #f8fafc;
-            color: #0f172a;
-            font-weight: 500;
-            transition: all 0.2s ease;
-        }
-
-        input[type="text"]:focus, select:focus { 
-            border-color: #0284c7; 
-            background-color: #ffffff;
-            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
-        }
-
-        /* Box Pilihan Kelas & Semester Berbasis Tombol */
-        .selected-box {
-            background: #e0f2fe;
-            border: 1.5px dashed #0284c7;
-            padding: 12px;
-            border-radius: 10px;
-            text-align: center;
-            color: #0369a1;
-            font-weight: 700;
-            font-size: 13px;
-            margin-bottom: 14px;
-        }
-
-        .btn-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-bottom: 12px;
-        }
-        .btn-opt {
-            background: #f8fafc;
-            border: 1.5px solid #e2e8f0;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 600;
-            color: #334155;
-            cursor: pointer;
-            transition: 0.2s;
-            text-align: center;
-        }
-        .btn-opt:active, .btn-opt.selected {
-            background: #0284c7;
-            color: white;
-            border-color: #0284c7;
-        }
-
-        .btn-main { 
-            width: 100%; 
-            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); 
-            color: white; 
-            padding: 13px; 
-            border: none; 
-            border-radius: 10px; 
-            font-size: 14px; 
-            font-weight: 700; 
-            cursor: pointer; 
-            transition: all 0.2s; 
-            margin-top: 6px;
-            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
-        }
-        .btn-main:active { transform: scale(0.98); }
-
-        .btn-submit { background: linear-gradient(135deg, #10b981 0%, #059669 100%); box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3); }
-        .btn-back { background: #f1f5f9; color: #475569; padding: 9px 12px; font-size: 12px; font-weight: 600; margin-bottom: 12px; width: 100%; text-align: center; border: none; border-radius: 8px; cursor: pointer; }
-
-        .card-info { background: #f8fafc; padding: 12px; border-radius: 10px; border: 1px solid #e2e8f0; margin-bottom: 12px; }
-        .mapel-card { background: #ffffff; border: 1.5px solid #e2e8f0; padding: 14px; border-radius: 12px; margin-bottom: 10px; text-align: left; }
-        .mapel-card h4 { margin: 0 0 8px 0; color: #0f172a; font-size: 14px; font-weight: 700; }
-        .mapel-btn { width: 100%; background: #0284c7; color: white; border: none; padding: 10px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; }
-        
-        .hidden { display: none; }
-        
-        .timer-box { background: #fff7ed; border: 1.5px solid #ffedd5; color: #c2410c; padding: 10px; border-radius: 10px; font-weight: 800; text-align: center; margin-bottom: 12px; font-size: 14px; }
-        
-        .nav-soal-box { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(34px, 1fr)); 
-            gap: 6px; 
-            margin-bottom: 14px; 
-            background: #f8fafc; 
-            padding: 10px; 
-            border-radius: 10px; 
-            border: 1px solid #e2e8f0; 
-        }
-        .nav-num { 
-            height: 34px; 
-            border-radius: 6px; 
-            background: #ffffff; 
-            color: #64748b; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-weight: 700; 
-            font-size: 12px; 
-            border: 1.5px solid #cbd5e1; 
-        }
-        .nav-num.answered { background: #10b981; color: white; border-color: #059669; }
-
-        .soal-item { background: #ffffff; border: 1.5px solid #e2e8f0; padding: 14px; margin-bottom: 12px; border-radius: 12px; text-align: left; }
-        .soal-item p { margin: 0 0 10px 0; font-weight: 700; color: #0f172a; font-size: 13px; line-height: 1.5; }
-        
-        .option-label { 
-            display: flex; 
-            align-items: flex-start; 
-            margin: 6px 0; 
-            cursor: pointer; 
-            padding: 10px; 
-            border-radius: 8px; 
-            border: 1.5px solid #f1f5f9; 
-            background: #f8fafc; 
-            font-size: 12px; 
-            font-weight: 500; 
-            color: #334155; 
-            line-height: 1.4;
-        }
-        .option-label input { margin-right: 8px; margin-top: 2px; min-width: 16px; min-height: 16px; accent-color: #0284c7; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CBT Ujian Online - PKBM Bidara Balya</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+    .container { max-width: 800px; margin: 0 auto; }
+    .card { border: 1px solid #ccc; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+    .btn { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; }
+    .btn:disabled { background-color: #cccccc; }
+    .opsi-label { display: block; margin: 8px 0; cursor: pointer; }
+    #pesan { font-weight: bold; margin-top: 10px; }
+  </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="brand-header">
-        <div class="brand-logo">📝</div>
-        <h1>PKBM BIDARA BALYA</h1>
-        <p>Ruang Ujian Online (CBT)</p>
-    </div>
+  <h2>CBT Ujian Online</h2>
+  
+  <!-- Form Data Peserta & Pilih Paket -->
+  <div class="card" id="form-peserta">
+    <h3>Data Peserta Ujian</h3>
+    <label>Nama Lengkap:</label><br>
+    <input type="text" id="nama-siswa" style="width: 100%; padding: 8px; margin-bottom: 10px;" required><br>
+    
+    <label>Pilih Paket Soal:</label><br>
+    <select id="pilih-paket" style="width: 100%; padding: 8px; margin-bottom: 15px;">
+      <option value="">-- Pilih Paket --</option>
+      <option value="Paket A">Paket A</option>
+      <option value="Paket B">Paket B</option>
+      <option value="Paket C">Paket C</option>
+    </select><br>
 
-    <div class="form-body">
-        <!-- LANGKAH 1: LOGIN SISWA -->
-        <div id="step-login">
-            <div class="form-group">
-                <label for="namaSiswa">Nama Lengkap Siswa</label>
-                <input type="text" id="namaSiswa" placeholder="Ketik nama lengkap sesuai absensi..." required>
-            </div>
+    <button class="btn" onclick="mulaiUjian()">Mulai Ujian</button>
+  </div>
 
-            <div class="form-group">
-                <label>Pilih Kelas & Semester</label>
-                <div id="dispSelectedSem" class="selected-box">Belum Memilih Kelas</div>
-                
-                <!-- PILIHAN PAKET -->
-                <div id="opt-paket" class="btn-grid">
-                    <button class="btn-opt" onclick="pilihPaket('Paket A')">Paket A (SD)</button>
-                    <button class="btn-opt" onclick="pilihPaket('Paket B')">Paket B (SMP)</button>
-                    <button class="btn-opt" style="grid-column: span 2;" onclick="pilihPaket('Paket C')">Paket C (SMA)</button>
-                </div>
+  <!-- Wadah Soal Ujian -->
+  <div id="area-ujian" style="display: none;">
+    <h3 id="judul-paket"></h3>
+    <form id="form-soal">
+      <div id="wadah-soal"></div>
+      <button type="button" class="btn" id="btn-submit" onclick="kirimJawaban()">Kirim Jawaban</button>
+    </form>
+  </div>
 
-                <!-- PILIHAN KELAS (DINAMIS) -->
-                <div id="opt-kelas" class="btn-grid hidden"></div>
-
-                <!-- PILIHAN SEMESTER -->
-                <div id="opt-semester" class="btn-grid hidden">
-                    <button class="btn-opt" onclick="pilihSemester('Semester 1')">Semester 1</button>
-                    <button class="btn-opt" onclick="pilihSemester('Semester 2')">Semester 2</button>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="pilihHari">Pilih Hari Ujian</label>
-                <select id="pilihHari">
-                    <option value="">-- Pilih Hari Ujian --</option>
-                    <option value="Hari 1">Hari 1</option>
-                    <option value="Hari 2">Hari 2</option>
-                    <option value="Hari 3">Hari 3</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="tokenUjian">Token Ujian Harian</label>
-                <input type="text" id="tokenUjian" placeholder="Ketik token dari pengawas..." required>
-            </div>
-
-            <button class="btn-main" onclick="verifikasiToken()">Masuk Ruang Ujian 🚀</button>
-        </div>
-
-        <!-- LANGKAH 2: DAFTAR MATA PELAJARAN -->
-        <div id="step-mapel" class="hidden">
-            <button class="btn-back" onclick="kembaliKeLogin()">← Keluar / Ganti Identitas</button>
-            <div class="card-info">
-                <p style="margin:0 0 3px 0; color:#64748b; font-size:12px;"><strong>Siswa:</strong> <span id="dispNama" style="color:#0f172a;"></span></p>
-                <p style="margin:0; color:#64748b; font-size:12px;"><strong>Jadwal:</strong> <span id="dispSem" style="color:#0f172a;"></span> (<span id="dispHari" style="color:#0f172a;"></span>)</p>
-            </div>
-            <h3 style="color:#0f172a; font-size:14px; font-weight:700; margin-bottom:10px; text-align:left;">Mata Pelajaran Hari Ini:</h3>
-            <div id="daftarMapelContainer"></div>
-        </div>
-
-        <!-- LANGKAH 3: LEMBAR SOAL UJIAN -->
-        <div id="step-soal" class="hidden">
-            <button class="btn-back" onclick="kembaliKeMapel()">← Kembali ke Daftar Mapel</button>
-            
-            <div class="timer-box">
-                ⏱️ Sisa Waktu Ujian: <span id="timerDisplay">60:00</span>
-            </div>
-
-            <div class="card-info" style="border-left: 4px solid #0284c7;">
-                <h3 id="judulMapel" style="margin:0; color:#0f172a; font-size:13px; font-weight:700;"></h3>
-            </div>
-
-            <p style="font-size:11px; font-weight:700; color:#64748b; margin-bottom:6px; text-align:left;">Status Lembar Jawab (Putih: Belum / Hijau: Sudah):</p>
-            <div id="navSoalContainer" class="nav-soal-box"></div>
-
-            <form id="formSoal">
-                <div id="soalContainer"></div>
-                <button type="button" class="btn-main btn-submit" onclick="hitungDanKirimNilai(false)">Selesai & Kirim Jawaban 📤</button>
-            </form>
-        </div>
-    </div>
+  <div id="pesan"></div>
 </div>
 
 <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxl-kk96fJ4mPazFjr4eVMUSs73Zcrr-LNuvnvd6ILGApqtQ8f66zZLk7vaiv7KtFvFcA/exec";
-    const GITHUB_RAW_BASE = "https://raw.githubusercontent.com/pkbmbidarabalya-creator/pkbm-bidara-balya/main";
+// URL Web App Google Apps Script Anda (Ganti dengan URL milik Anda)
+const URL_GAS = "HTTPS_URL_GOOGLE_APPS_SCRIPT_ANDA";
 
-    let tempPaket = "";
-    let tempKelas = "";
-    let finalKeySemester = "";
+let dataSoalAktif = [];
+let namaPaketTerpilih = "";
 
-    function pilihPaket(p) {
-        tempPaket = p;
-        const boxKelas = document.getElementById("opt-kelas");
-        boxKelas.innerHTML = "";
-        
-        let list = p === 'Paket A' ? ['Kelas 4', 'Kelas 5', 'Kelas 6'] :
-                   p === 'Paket B' ? ['Kelas 7', 'Kelas 8', 'Kelas 9'] : ['Kelas 10', 'Kelas 11', 'Kelas 12'];
+// 1. Memuat Soal berdasarkan Paket yang dipilih
+async function mulaiUjian() {
+  const namaSiswa = document.getElementById('nama-siswa').value.trim();
+  namaPaketTerpilih = document.getElementById('pilih-paket').value;
 
-        list.forEach(k => {
-            boxKelas.innerHTML += `<button class="btn-opt" onclick="pilihKelas('${k}')">${k}</button>`;
-        });
+  if (!namaSiswa || !namaPaketTerpilih) {
+    alert("Harap isi nama dan pilih paket soal terlebih dahulu!");
+    return;
+  }
 
-        document.getElementById("opt-paket").classList.add("hidden");
-        boxKelas.classList.remove("hidden");
-        document.getElementById("dispSelectedSem").innerText = p + " (Pilih Kelas)";
+  const pesan = document.getElementById('pesan');
+  pesan.innerText = "Sedang mengambil soal...";
+  
+  // Menangani nama folder dengan spasi (misal: Paket A -> Paket%20A)
+  const pathFolder = encodeURIComponent(namaPaketTerpilih);
+  
+  /* Catatan: Sesuaikan nama file JSON (misal: 'soal.json') 
+     dengan nama file asli di dalam folder Paket A/B/C di GitHub */
+  const urlFileJson = `./${pathFolder}/soal.json`;
+
+  try {
+    const response = await fetch(urlFileJson);
+    if (!response.ok) throw new Error("File JSON tidak ditemukan di folder tersebut.");
+
+    dataSoalAktif = await response.json();
+    
+    // Tampilkan lembar ujian
+    document.getElementById('form-peserta').style.display = 'none';
+    document.getElementById('area-ujian').style.display = 'block';
+    document.getElementById('judul-paket').innerText = `Ujian: ${namaPaketTerpilih}`;
+    pesan.innerText = "";
+    
+    renderSoal(dataSoalAktif);
+
+  } catch (error) {
+    console.error(error);
+    pesan.style.color = "red";
+    pesan.innerText = `Gagal memuat soal: ${error.message}`;
+  }
+}
+
+// 2. Menampilkan daftar soal ke HTML
+function renderSoal(daftarSoal) {
+  const wadah = document.getElementById('wadah-soal');
+  wadah.innerHTML = "";
+
+  daftarSoal.forEach((item, index) => {
+    const cardSoal = document.createElement('div');
+    cardSoal.className = 'card';
+
+    let htmlOpsi = '';
+    if (item.opsi) {
+      Object.keys(item.opsi).forEach(kunci => {
+        htmlOpsi += `
+          <label class="opsi-label">
+            <input type="radio" name="soal_${index}" value="${kunci}">
+            ${kunci}. ${item.opsi[kunci]}
+          </label>
+        `;
+      });
     }
 
-    function pilihKelas(k) {
-        tempKelas = k;
-        document.getElementById("opt-kelas").classList.add("hidden");
-        document.getElementById("opt-semester").classList.remove("hidden");
-        document.getElementById("dispSelectedSem").innerText = `${tempKelas} (Pilih Semester)`;
-    }
+    cardSoal.innerHTML = `
+      <p><strong>${index + 1}. ${item.pertanyaan || item.soal}</strong></p>
+      ${htmlOpsi}
+    `;
+    wadah.appendChild(cardSoal);
+  });
+}
 
-    function pilihSemester(s) {
-        finalKeySemester = `${tempKelas} - ${s}`;
-        document.getElementById("dispSelectedSem").innerText = `✓ ${tempPaket}: ${finalKeySemester}`;
-        document.getElementById("opt-semester").classList.add("hidden");
-    }
+// 3. Pengiriman Jawaban ke Google Sheets via Google Apps Script
+async function kirimJawaban() {
+  const namaSiswa = document.getElementById('nama-siswa').value;
+  const btnSubmit = document.getElementById('btn-submit');
+  const pesan = document.getElementById('pesan');
 
-    const databaseLink = {
-        "Kelas 5 - Semester 1": { 
-            ujian: [
-                { mapel: "Pendidikan Agama", hari: "Hari 1", token: "HARI1KELAS5", link: `${GITHUB_RAW_BASE}/Paket A/Kelas V/Semester 1/Hari 1/soal_agama_kelas_v_semester1.json` },
-                { mapel: "Bahasa Indonesia", hari: "Hari 1", token: "HARI1KELAS5", link: `${GITHUB_RAW_BASE}/Paket A/Kelas V/Semester 1/Hari 1/soal_bahasa_indonesia_kelas_v_semester1.json` },
-                { mapel: "Bahasa Inggris", hari: "Hari 1", token: "HARI1KELAS5", link: `${GITHUB_RAW_BASE}/Paket A/Kelas V/Semester 1/Hari 1/soal_bahasa_inggris_kelas_v_semester1.json` },
-                { mapel: "IPA", hari: "Hari 2", token: "HARI2KELAS5", link: `${GITHUB_RAW_BASE}/Paket A/Kelas V/Semester 1/Hari 2/soal_ipa_kelas_v_semester1.json` },
-                { mapel: "IPS", hari: "Hari 2", token: "HARI2KELAS5", link: `${GITHUB_RAW_BASE}/Paket A/Kelas V/Semester 1/Hari 2/soal_ips_kelas_v_semester1.json` },
-                { mapel: "Matematika", hari: "Hari 2", token: "HARI2KELAS5", link: `${GITHUB_RAW_BASE}/Paket A/Kelas V/Semester 1/Hari 2/soal_matematika_kelas_v_semester1.json` },
-                { mapel: "PJOK", hari: "Hari 3", token: "HARI3KELAS5", link: `${GITHUB_RAW_BASE}/Paket A/Kelas V/Semester 1/Hari 3/soal_pjok_kelas_v_semester1.json` },
-                { mapel: "PPKn", hari: "Hari 3", token: "HARI3KELAS5", link: `${GITHUB_RAW_BASE}/Paket A/Kelas V/Semester 1/Hari 3/soal_ppkn_kelas_v_semester1.json` },
-                { mapel: "Seni Budaya", hari: "Hari 3", token: "HARI3KELAS5", link: `${GITHUB_RAW_BASE}/Paket A/Kelas V/Semester 1/Hari 3/soal_senibudaya_v_semester1.json` }
-            ]
-        },
-        "Kelas 10 - Semester 1": { 
-            ujian: [
-                { mapel: "Pendidikan Agama", hari: "Hari 1", token: "HARI1KELAS10", link: `${GITHUB_RAW_BASE}/Paket C/Kelas X/Semester 1/Hari 1/soal_agama_kelas_x_semester1.json` },
-                { mapel: "Bahasa Indonesia", hari: "Hari 1", token: "HARI1KELAS10", link: `${GITHUB_RAW_BASE}/Paket C/Kelas X/Semester 1/Hari 1/soal_bahasa_indonesia_kelas_x_semester1.json` },
-                { mapel: "Bahasa Inggris", hari: "Hari 1", token: "HARI1KELAS10", link: `${GITHUB_RAW_BASE}/Paket C/Kelas X/Semester 1/Hari 1/soal_bahasa_inggris_kelas_x_semester1.json` },
-                { mapel: "Ekonomi", hari: "Hari 1", token: "HARI1KELAS10", link: `${GITHUB_RAW_BASE}/Paket C/Kelas X/Semester 1/Hari 1/soal_ekonomi_kelas_x_semester1.json` },
-                { mapel: "Sosiologi", hari: "Hari 2", token: "HARI2KELAS10", link: `${GITHUB_RAW_BASE}/Paket C/Kelas X/Semester 1/Hari 2/soal_sosiologi_kelas_x_semester1.json` },
-                { mapel: "Geografi", hari: "Hari 2", token: "HARI2KELAS10", link: `${GITHUB_RAW_BASE}/Paket C/Kelas X/Semester 1/Hari 2/soal_geografi_kelas_x_semester1.json` },
-                { mapel: "Matematika", hari: "Hari 2", token: "HARI2KELAS10", link: `${GITHUB_RAW_BASE}/Paket C/Kelas X/Semester 1/Hari 2/soal_matematika_kelas_x_semester1.json` },
-                { mapel: "PJOK", hari: "Hari 3", token: "HARI3KELAS10", link: `${GITHUB_RAW_BASE}/Paket C/Kelas X/Semester 1/Hari 3/soal_pjok_kelas_x_semester1.json` },
-                { mapel: "PPKn", hari: "Hari 3", token: "HARI3KELAS10", link: `${GITHUB_RAW_BASE}/Paket C/Kelas X/Semester 1/Hari 3/soal_ppkn_kelas_x_semester1.json` },
-                { mapel: "Seni Budaya", hari: "Hari 3", token: "HARI3KELAS10", link: `${GITHUB_RAW_BASE}/Paket C/Kelas X/Semester 1/Hari 3/soal_senibudaya_kelas_x_semester1.json` }
-            ]
-        }
-    };
+  // Kumpulkan semua jawaban peserta
+  let jawabanSiswa = {};
+  dataSoalAktif.forEach((_, index) => {
+    const terpilih = document.querySelector(`input[name="soal_${index}"]:checked`);
+    jawabanSiswa[`Soal_${index + 1}`] = terpilih ? terpilih.value : "-";
+  });
 
-    let currentSiswa = "";
-    let currentSemester = "";
-    let currentHari = "";
-    let currentMapel = "";
-    let currentDataSoal = [];
-    let timerInterval = null;
+  const payload = {
+    nama: namaSiswa,
+    paket: namaPaketTerpilih,
+    jawaban: jawabanSiswa,
+    waktuSubmit: new Date().toLocaleString("id-ID")
+  };
 
-    function verifikasiToken() {
-        const nama = document.getElementById("namaSiswa").value.trim();
-        const sem = finalKeySemester;
-        const hari = document.getElementById("pilihHari").value;
-        const token = document.getElementById("tokenUjian").value.trim();
+  btnSubmit.disabled = true;
+  pesan.style.color = "black";
+  pesan.innerText = "Sedang mengirim jawaban...";
 
-        if (!nama || !sem || !hari || !token) {
-            alert("Harap isi Nama, Pilih Kelas/Semester, Hari Ujian, dan Token!");
-            return;
-        }
+  try {
+    const response = await fetch(URL_GAS, {
+      method: "POST",
+      mode: "no-cors", // Digunakan agar tidak terhalang CORS Google Sheets
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
 
-        const dataSem = databaseLink[sem];
-        if (!dataSem || !dataSem.ujian) {
-            alert("Data ujian untuk kelas/semester ini belum diatur.");
-            return;
-        }
+    pesan.style.color = "green";
+    pesan.innerText = "Jawaban berhasil dikirim! Terima kasih.";
+    document.getElementById('form-soal').style.display = 'none';
 
-        const mapelHariIni = dataSem.ujian.filter(item => item.hari === hari);
-
-        if (mapelHariIni.length === 0) {
-            alert("Belum ada daftar soal untuk kelas/hari ini.");
-            return;
-        }
-
-        if (mapelHariIni[0].token !== token) {
-            alert("Token Ujian Salah!");
-            return;
-        }
-
-        currentSiswa = nama;
-        currentSemester = sem;
-        currentHari = hari;
-
-        document.getElementById("dispNama").innerText = nama;
-        document.getElementById("dispSem").innerText = sem;
-        document.getElementById("dispHari").innerText = hari;
-
-        const container = document.getElementById("daftarMapelContainer");
-        container.innerHTML = "";
-
-        mapelHariIni.forEach(item => {
-            const card = document.createElement("div");
-            card.className = "mapel-card";
-            card.innerHTML = `
-                <h4>${item.mapel}</h4>
-                <button class="mapel-btn" onclick="muatSoal('${item.mapel}', '${item.link}')">Mulai Kerjakan Soal 📝</button>
-            `;
-            container.appendChild(card);
-        });
-
-        document.getElementById("step-login").classList.add("hidden");
-        document.getElementById("step-mapel").classList.remove("hidden");
-    }
-
-    function kembaliKeLogin() {
-        document.getElementById("step-mapel").classList.add("hidden");
-        document.getElementById("step-login").classList.remove("hidden");
-    }
-
-    function kembaliKeMapel() {
-        if (confirm("Apakah Anda yakin ingin keluar dari lembar soal? Kemajuan Anda pada soal ini belum tersimpan.")) {
-            clearInterval(timerInterval);
-            document.getElementById("step-soal").classList.add("hidden");
-            document.getElementById("step-mapel").classList.remove("hidden");
-        }
-    }
-
-    function muatSoal(mapel, jsonLink) {
-        currentMapel = mapel;
-        document.getElementById("judulMapel").innerText = "Mata Pelajaran: " + mapel;
-        
-        fetch(jsonLink)
-            .then(res => {
-                if(!res.ok) throw new Error("Gagal mengambil data soal.");
-                return res.json();
-            })
-            .then(data => {
-                currentDataSoal = data;
-                tampilkanLembarSoal(data);
-                mulaiTimer(60);
-                document.getElementById("step-mapel").classList.add("hidden");
-                document.getElementById("step-soal").classList.remove("hidden");
-            })
-            .catch(err => {
-                alert("Gagal memuat soal. Pastikan koneksi internet stabil!");
-                console.error(err);
-            });
-    }
-
-    function mulaiTimer(durasiMenit) {
-        clearInterval(timerInterval);
-        let sisaDetik = durasiMenit * 60;
-        const display = document.getElementById("timerDisplay");
-
-        timerInterval = setInterval(() => {
-            let m = Math.floor(sisaDetik / 60);
-            let s = sisaDetik % 60;
-
-            m = m < 10 ? "0" + m : m;
-            s = s < 10 ? "0" + s : s;
-
-            display.innerText = `${m}:${s}`;
-
-            if (--sisaDetik < 0) {
-                clearInterval(timerInterval);
-                alert("Waktu pengerjaan telah habis! Jawaban Anda akan otomatis dikirim.");
-                hitungDanKirimNilai(true);
-            }
-        }, 1000);
-    }
-
-    function tampilkanLembarSoal(soalArray) {
-        const container = document.getElementById("soalContainer");
-        const navContainer = document.getElementById("navSoalContainer");
-        container.innerHTML = "";
-        navContainer.innerHTML = "";
-
-        soalArray.forEach((q, idx) => {
-            const navNum = document.createElement("div");
-            navNum.className = "nav-num";
-            navNum.id = `nav_num_${idx}`;
-            navNum.innerText = idx + 1;
-            navContainer.appendChild(navNum);
-
-            const div = document.createElement("div");
-            div.className = "soal-item";
-
-            let teksSoal = q.soal || q.pertanyaan || "";
-            teksSoal = teksSoal.replace(/^\d+[\.\)]\s*/, '');
-
-            let pilihanHTML = "";
-            if (q.pilihan && Array.isArray(q.pilihan)) {
-                q.pilihan.forEach((pil, pIdx) => {
-                    pilihanHTML += `
-                        <label class="option-label">
-                            <input type="radio" name="soal_${idx}" value="${pil}" onchange="updateIndikatorSoal(${idx})"> ${pil}
-                        </label>
-                    `;
-                });
-            }
-
-            div.innerHTML = `<p>${idx + 1}. ${teksSoal}</p>${pilihanHTML}`;
-            container.appendChild(div);
-        });
-    }
-
-    function updateIndikatorSoal(indexSoal) {
-        const navNum = document.getElementById(`nav_num_${indexSoal}`);
-        if (navNum) {
-            navNum.classList.add("answered");
-        }
-    }
-
-    function hitungDanKirimNilai(isAutoSubmit = false) {
-        if (!isAutoSubmit) {
-            if (!confirm(`Apakah Anda yakin ingin menyelesaikan dan mengirim jawaban ujian ${currentMapel}?`)) {
-                return;
-            }
-        }
-
-        clearInterval(timerInterval);
-
-        let skor = 0;
-        const totalSoal = currentDataSoal.length;
-
-        currentDataSoal.forEach((q, idx) => {
-            const selected = document.querySelector(`input[name="soal_${idx}"]:checked`);
-            if (selected) {
-                const jawabanUser = selected.value.trim();
-                
-                if (q.jawaban_benar) {
-                    const kunciHuruf = q.jawaban_benar.toString().trim().toUpperCase();
-                    if (jawabanUser.startsWith(kunciHuruf)) {
-                        skor++;
-                    }
-                } else if (q.jawaban !== undefined) {
-                    if (parseInt(jawabanUser) === q.jawaban) {
-                        skor++;
-                    }
-                }
-            }
-        });
-
-        const nilaiFinal = Math.round((skor / totalSoal) * 100);
-
-        const payload = {
-            nama: currentSiswa,
-            semester: currentSemester,
-            hari: currentHari,
-            mapel: currentMapel,
-            nilai: nilaiFinal
-        };
-
-        fetch(SCRIPT_URL, {
-            method: "POST",
-            mode: "no-cors",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload)
-        })
-        .then(() => {
-            alert("Jawaban Anda berhasil dikirim ke sistem!");
-            document.getElementById("step-soal").classList.add("hidden");
-            document.getElementById("step-mapel").classList.remove("hidden");
-        })
-        .catch(err => {
-            alert("Gagal mengirim jawaban. Silakan coba lagi.");
-            console.error(err);
-        });
-    }
+  } catch (error) {
+    console.error(error);
+    pesan.style.color = "red";
+    pesan.innerText = "Gagal mengirim jawaban. Periksa koneksi internet Anda.";
+    btnSubmit.disabled = false;
+  }
+}
 </script>
 
 </body>
