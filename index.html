@@ -4,174 +4,213 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CBT Ujian Online - PKBM Bidara Balya</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        * { box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        * { box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; padding: 0; }
         body { 
-            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%); 
-            margin: 0; 
-            padding: 20px 10px; 
+            background: #0f172a; 
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.12) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.12) 0px, transparent 50%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 20px 14px;
         }
         .container { 
             width: 100%;
-            max-width: 700px; 
+            max-width: 520px; 
             background: #ffffff; 
-            padding: 25px; 
-            border-radius: 16px; 
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); 
+            border-radius: 24px; 
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35); 
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        .header { text-align: center; margin-bottom: 25px; }
-        .header h1 { color: #1a365d; font-size: 24px; margin: 0; font-weight: 700; text-transform: uppercase; }
-        .header h2 { color: #2b6cb0; font-size: 15px; margin: 5px 0 0 0; font-weight: 500; }
+
+        /* Banner Header */
+        .brand-header {
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            padding: 32px 24px 28px;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+        .brand-logo {
+            width: 56px;
+            height: 56px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin: 0 auto 12px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .brand-header h1 { font-size: 20px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 4px; }
+        .brand-header p { font-size: 13px; color: #bae6fd; font-weight: 500; }
+
+        .form-body { padding: 28px 24px; }
+        .form-group { margin-bottom: 20px; text-align: left; }
+        label { display: block; font-weight: 700; margin-bottom: 8px; color: #334155; font-size: 13px; }
         
-        .form-group { margin-bottom: 18px; }
-        label { display: block; font-weight: 600; margin-bottom: 6px; color: #2d3748; font-size: 14px; }
         input[type="text"], select { 
             width: 100%; 
-            padding: 12px 14px; 
-            border: 2px solid #e2e8f0; 
-            border-radius: 8px; 
+            padding: 14px 16px; 
+            border: 1.5px solid #e2e8f0; 
+            border-radius: 12px; 
             font-size: 14px; 
             outline: none;
             background-color: #f8fafc;
+            color: #0f172a;
+            font-weight: 500;
+            transition: all 0.2s ease;
         }
         input[type="text"]:focus, select:focus { 
-            border-color: #3182ce; 
-            background-color: #fff;
-            box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.15);
+            border-color: #0284c7; 
+            background-color: #ffffff;
+            box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.15);
         }
-        
-        .btn { 
-            width: 100%; 
-            background: #2b6cb0; 
-            color: white; 
-            padding: 12px; 
-            border: none; 
-            border-radius: 8px; 
-            font-size: 15px; 
-            font-weight: 600; 
-            cursor: pointer; 
-            transition: all 0.3s; 
-            margin-top: 10px;
-        }
-        .btn:hover { background: #1a365d; }
-        .btn-submit { background: #319795; }
-        .btn-submit:hover { background: #234e52; }
-        .btn-back { background: #e2e8f0; color: #4a5568; padding: 8px 14px; font-size: 13px; margin-bottom: 15px; width: auto; display: inline-block; border: none; border-radius: 6px; cursor: pointer; }
-        .btn-back:hover { background: #cbd5e0; }
 
-        .card { background: #f7fafc; padding: 15px; border-radius: 10px; border: 1px solid #e2e8f0; margin-bottom: 15px; }
-        .mapel-card { background: #ffffff; border: 1px solid #cbd5e0; padding: 15px; border-radius: 10px; margin-bottom: 12px; }
-        .mapel-card h4 { margin: 0 0 10px 0; color: #2d3748; }
+        .btn-main { 
+            width: 100%; 
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); 
+            color: white; 
+            padding: 16px; 
+            border: none; 
+            border-radius: 14px; 
+            font-size: 15px; 
+            font-weight: 700; 
+            cursor: pointer; 
+            transition: all 0.2s; 
+            margin-top: 10px;
+            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+        }
+        .btn-main:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(2, 132, 199, 0.45); }
+        .btn-main:active { transform: translateY(0); }
+
+        .btn-submit { background: linear-gradient(135deg, #10b981 0%, #059669 100%); box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35); }
+        .btn-submit:hover { box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45); }
         
-        .mapel-btn { background: #3182ce; color: white; border: none; padding: 10px 16px; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 500; }
+        .btn-back { background: #f1f5f9; color: #475569; padding: 10px 16px; font-size: 13px; font-weight: 600; margin-bottom: 18px; width: auto; display: inline-block; border: none; border-radius: 10px; cursor: pointer; transition: 0.2s; }
+        .btn-back:hover { background: #e2e8f0; color: #0f172a; }
+
+        .card-info { background: #f8fafc; padding: 16px; border-radius: 14px; border: 1px solid #e2e8f0; margin-bottom: 18px; }
+        .mapel-card { background: #ffffff; border: 1.5px solid #e2e8f0; padding: 18px; border-radius: 14px; margin-bottom: 12px; transition: 0.2s; }
+        .mapel-card:hover { border-color: #0284c7; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .mapel-card h4 { margin: 0 0 12px 0; color: #0f172a; font-size: 16px; font-weight: 700; }
+        
+        .mapel-btn { background: #0284c7; color: white; border: none; padding: 10px 18px; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: 600; transition: 0.2s; }
+        .mapel-btn:hover { background: #0369a1; }
         
         .hidden { display: none; }
         
-        .timer-box { background: #feebc8; border: 1px solid #fbd38d; color: #9b2c2c; padding: 10px 15px; border-radius: 8px; font-weight: 700; text-align: center; margin-bottom: 15px; font-size: 16px; }
-        .nav-soal-box { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; background: #edf2f7; padding: 12px; border-radius: 8px; }
-        .nav-num { width: 35px; height: 35px; border-radius: 6px; background: #e2e8f0; color: #4a5568; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 13px; border: 1px solid #cbd5e0; }
-        .nav-num.answered { background: #48bb78; color: white; border-color: #38a169; }
+        .timer-box { background: #fff7ed; border: 1.5px solid #ffedd5; color: #c2410c; padding: 12px 18px; border-radius: 12px; font-weight: 800; text-align: center; margin-bottom: 18px; font-size: 16px; }
+        .nav-soal-box { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; background: #f8fafc; padding: 14px; border-radius: 12px; border: 1px solid #e2e8f0; }
+        .nav-num { width: 36px; height: 36px; border-radius: 8px; background: #ffffff; color: #64748b; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; border: 1.5px solid #cbd5e1; }
+        .nav-num.answered { background: #10b981; color: white; border-color: #059669; }
 
-        .soal-item { background: #ffffff; border: 1px solid #e2e8f0; padding: 16px; margin-bottom: 16px; border-radius: 8px; }
-        .soal-item p { margin: 0 0 12px 0; font-weight: 600; color: #2d3748; font-size: 15px; line-height: 1.5; }
-        .option-label { display: flex; align-items: center; margin: 8px 0; cursor: pointer; padding: 8px 12px; border-radius: 6px; border: 1px solid #edf2f7; transition: background 0.2s; font-size: 14px; }
-        .option-label:hover { background: #ebf8ff; border-color: #bee3f8; }
-        .option-label input { margin-right: 10px; }
+        .soal-item { background: #ffffff; border: 1.5px solid #e2e8f0; padding: 20px; margin-bottom: 16px; border-radius: 14px; text-align: left; }
+        .soal-item p { margin: 0 0 14px 0; font-weight: 700; color: #0f172a; font-size: 15px; line-height: 1.6; }
+        .option-label { display: flex; align-items: center; margin: 10px 0; cursor: pointer; padding: 12px 14px; border-radius: 10px; border: 1.5px solid #f1f5f9; background: #f8fafc; transition: all 0.2s; font-size: 14px; font-weight: 500; color: #334155; }
+        .option-label:hover { background: #f0f9ff; border-color: #bae6fd; color: #0369a1; }
+        .option-label input { margin-right: 12px; width: 18px; height: 18px; accent-color: #0284c7; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="header">
+    <!-- Header Banner -->
+    <div class="brand-header">
+        <div class="brand-logo">📝</div>
         <h1>PKBM BIDARA BALYA</h1>
-        <h2>Ruang Ujian Online (CBT)</h2>
+        <p>Ruang Ujian Online (CBT)</p>
     </div>
 
-    <!-- LANGKAH 1: LOGIN SISWA & PILIH KELAS -->
-    <div id="step-login">
-        <div class="form-group">
-            <label for="namaSiswa">Nama Lengkap Siswa:</label>
-            <input type="text" id="namaSiswa" placeholder="Ketik nama lengkap sesuai absensi..." required>
-        </div>
-        <div class="form-group">
-            <label for="pilihSemester">Pilih Kelas & Semester:</label>
-            <select id="pilihSemester">
-                <option value="">-- Pilih Kelas & Semester --</option>
-                <!-- PAKET A -->
-                <option value="Kelas 4 - Semester 1">Paket A: Kelas IV - Semester 1</option>
-                <option value="Kelas 4 - Semester 2">Paket A: Kelas IV - Semester 2</option>
-                <option value="Kelas 5 - Semester 1">Paket A: Kelas V - Semester 1</option>
-                <option value="Kelas 5 - Semester 2">Paket A: Kelas V - Semester 2</option>
-                <option value="Kelas 6 - Semester 1">Paket A: Kelas VI - Semester 1</option>
-                <option value="Kelas 6 - Semester 2">Paket A: Kelas VI - Semester 2</option>
-                <!-- PAKET B -->
-                <option value="Kelas 7 - Semester 1">Paket B: Kelas VII - Semester 1</option>
-                <option value="Kelas 7 - Semester 2">Paket B: Kelas VII - Semester 2</option>
-                <option value="Kelas 8 - Semester 1">Paket B: Kelas VIII - Semester 1</option>
-                <option value="Kelas 8 - Semester 2">Paket B: Kelas VIII - Semester 2</option>
-                <option value="Kelas 9 - Semester 1">Paket B: Kelas IX - Semester 1</option>
-                <option value="Kelas 9 - Semester 2">Paket B: Kelas IX - Semester 2</option>
-                <!-- PAKET C -->
-                <option value="Kelas 10 - Semester 1">Paket C: Kelas X - Semester 1</option>
-                <option value="Kelas 10 - Semester 2">Paket C: Kelas X - Semester 2</option>
-                <option value="Kelas 11 - Semester 1">Paket C: Kelas XI - Semester 1</option>
-                <option value="Kelas 11 - Semester 2">Paket C: Kelas XI - Semester 2</option>
-                <option value="Kelas 12 - Semester 1">Paket C: Kelas XII - Semester 1</option>
-                <option value="Kelas 12 - Semester 2">Paket C: Kelas XII - Semester 2</option>
-            </select>
+    <div class="form-body">
+        <!-- LANGKAH 1: LOGIN SISWA & PILIH KELAS -->
+        <div id="step-login">
+            <div class="form-group">
+                <label for="namaSiswa">Nama Lengkap Siswa</label>
+                <input type="text" id="namaSiswa" placeholder="Ketik nama lengkap sesuai absensi..." required>
+            </div>
+            <div class="form-group">
+                <label for="pilihSemester">Pilih Kelas & Semester</label>
+                <select id="pilihSemester">
+                    <option value="">-- Pilih Kelas & Semester --</option>
+                    <!-- PAKET A -->
+                    <option value="Kelas 4 - Semester 1">Paket A: Kelas IV - Semester 1</option>
+                    <option value="Kelas 4 - Semester 2">Paket A: Kelas IV - Semester 2</option>
+                    <option value="Kelas 5 - Semester 1">Paket A: Kelas V - Semester 1</option>
+                    <option value="Kelas 5 - Semester 2">Paket A: Kelas V - Semester 2</option>
+                    <option value="Kelas 6 - Semester 1">Paket A: Kelas VI - Semester 1</option>
+                    <option value="Kelas 6 - Semester 2">Paket A: Kelas VI - Semester 2</option>
+                    <!-- PAKET B -->
+                    <option value="Kelas 7 - Semester 1">Paket B: Kelas VII - Semester 1</option>
+                    <option value="Kelas 7 - Semester 2">Paket B: Kelas VII - Semester 2</option>
+                    <option value="Kelas 8 - Semester 1">Paket B: Kelas VIII - Semester 1</option>
+                    <option value="Kelas 8 - Semester 2">Paket B: Kelas VIII - Semester 2</option>
+                    <option value="Kelas 9 - Semester 1">Paket B: Kelas IX - Semester 1</option>
+                    <option value="Kelas 9 - Semester 2">Paket B: Kelas IX - Semester 2</option>
+                    <!-- PAKET C -->
+                    <option value="Kelas 10 - Semester 1">Paket C: Kelas X - Semester 1</option>
+                    <option value="Kelas 10 - Semester 2">Paket C: Kelas X - Semester 2</option>
+                    <option value="Kelas 11 - Semester 1">Paket C: Kelas XI - Semester 1</option>
+                    <option value="Kelas 11 - Semester 2">Paket C: Kelas XI - Semester 2</option>
+                    <option value="Kelas 12 - Semester 1">Paket C: Kelas XII - Semester 1</option>
+                    <option value="Kelas 12 - Semester 2">Paket C: Kelas XII - Semester 2</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="pilihHari">Pilih Hari Ujian</label>
+                <select id="pilihHari">
+                    <option value="">-- Pilih Hari Ujian --</option>
+                    <option value="Hari 1">Hari 1</option>
+                    <option value="Hari 2">Hari 2</option>
+                    <option value="Hari 3">Hari 3</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="tokenUjian">Token Ujian Harian</label>
+                <input type="text" id="tokenUjian" placeholder="Ketik token dari pengawas..." required>
+            </div>
+            <button class="btn-main" onclick="verifikasiToken()">Masuk Ruang Ujian 🚀</button>
         </div>
 
-        <div class="form-group">
-            <label for="pilihHari">Pilih Hari Ujian:</label>
-            <select id="pilihHari">
-                <option value="">-- Pilih Hari Ujian --</option>
-                <option value="Hari 1">Hari 1</option>
-                <option value="Hari 2">Hari 2</option>
-                <option value="Hari 3">Hari 3</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="tokenUjian">Token Ujian Harian:</label>
-            <input type="text" id="tokenUjian" placeholder="Ketik token dari pengawas..." required>
-        </div>
-        <button class="btn" onclick="verifikasiToken()">Masuk Ruang Ujian 🚀</button>
-    </div>
-
-    <!-- LANGKAH 2: DAFTAR MATA PELAJARAN -->
-    <div id="step-mapel" class="hidden">
-        <button class="btn btn-back" onclick="kembaliKeLogin()">← Keluar / Ganti Identitas</button>
-        <div class="card">
-            <p style="margin:0 0 5px 0; color:#4a5568;"><strong>Siswa:</strong> <span id="dispNama"></span></p>
-            <p style="margin:0; color:#4a5568;"><strong>Jadwal:</strong> <span id="dispSem"></span> (<span id="dispHari"></span>)</p>
-        </div>
-        <h3 style="color:#1a365d; font-size:16px;">Mata Pelajaran Hari Ini:</h3>
-        <div id="daftarMapelContainer"></div>
-    </div>
-
-    <!-- LANGKAH 3: LEMBAR SOAL UJIAN -->
-    <div id="step-soal" class="hidden">
-        <button class="btn btn-back" onclick="kembaliKeMapel()">← Kembali ke Daftar Mapel</button>
-        
-        <div class="timer-box">
-            ⏱️ Sisa Waktu Ujian: <span id="timerDisplay">60:00</span>
+        <!-- LANGKAH 2: DAFTAR MATA PELAJARAN -->
+        <div id="step-mapel" class="hidden">
+            <button class="btn-back" onclick="kembaliKeLogin()">← Keluar / Ganti Identitas</button>
+            <div class="card-info">
+                <p style="margin:0 0 4px 0; color:#64748b; font-size:13px;"><strong>Siswa:</strong> <span id="dispNama" style="color:#0f172a;"></span></p>
+                <p style="margin:0; color:#64748b; font-size:13px;"><strong>Jadwal:</strong> <span id="dispSem" style="color:#0f172a;"></span> (<span id="dispHari" style="color:#0f172a;"></span>)</p>
+            </div>
+            <h3 style="color:#0f172a; font-size:15px; font-weight:700; margin-bottom:12px; text-align:left;">Mata Pelajaran Hari Ini:</h3>
+            <div id="daftarMapelContainer"></div>
         </div>
 
-        <div class="card" style="border-left: 4px solid #3182ce;">
-            <h3 id="judulMapel" style="margin:0; color:#1a365d; font-size:16px;"></h3>
+        <!-- LANGKAH 3: LEMBAR SOAL UJIAN -->
+        <div id="step-soal" class="hidden">
+            <button class="btn-back" onclick="kembaliKeMapel()">← Kembali ke Daftar Mapel</button>
+            
+            <div class="timer-box">
+                ⏱️ Sisa Waktu Ujian: <span id="timerDisplay">60:00</span>
+            </div>
+
+            <div class="card-info" style="border-left: 4px solid #0284c7;">
+                <h3 id="judulMapel" style="margin:0; color:#0f172a; font-size:15px; font-weight:700;"></h3>
+            </div>
+
+            <p style="font-size:12px; font-weight:700; color:#64748b; margin-bottom:8px; text-align:left;">Status Lembar Jawab (Putih: Belum / Hijau: Sudah):</p>
+            <div id="navSoalContainer" class="nav-soal-box"></div>
+
+            <form id="formSoal">
+                <div id="soalContainer"></div>
+                <button type="button" class="btn-main btn-submit" onclick="hitungDanKirimNilai(false)">Selesai & Kirim Jawaban 📤</button>
+            </form>
         </div>
-
-        <p style="font-size:13px; font-weight:600; color:#4a5568; margin-bottom:5px;">Status Lembar Jawab (Abu-abu: Belum / Hijau: Sudah):</p>
-        <div id="navSoalContainer" class="nav-soal-box"></div>
-
-        <form id="formSoal">
-            <div id="soalContainer"></div>
-            <button type="button" class="btn btn-submit" onclick="hitungDanKirimNilai(false)">Selesai & Kirim Jawaban 📤</button>
-        </form>
     </div>
 </div>
 
