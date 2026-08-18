@@ -1,0 +1,302 @@
+[
+  {
+    "sumber_file": "ekonomi",
+    "soal": "1. Pencatatan keuangan diperlukan dalam sebuah usaha karena …",
+    "gambar": null,
+    "pilihan": [
+      "A. membuat laporan semakin banyak",
+      "B. membantu pengusaha menebak keuntungan",
+      "C. memberikan informasi kondisi usaha secara nyata",
+      "D. hanya diperlukan untuk usaha besar"
+    ],
+    "jawaban_benar": "C"
+  },
+  {
+    "sumber_file": "ekonomi",
+    "soal": "2. Salah satu tujuan akuntansi adalah …",
+    "gambar": null,
+    "pilihan": [
+      "A. mengurangi modal usaha",
+      "B. menyediakan informasi keuangan untuk pengambilan keputusan",
+      "C. menambah jumlah utang usaha",
+      "D. menentukan jumlah karyawan"
+    ],
+    "jawaban_benar": "B"
+  },
+  {
+    "sumber_file": "ekonomi",
+    "soal": "3. Pihak yang menggunakan laporan keuangan untuk mengevaluasi kelayakan pemberian pinjaman adalah …",
+    "gambar": null,
+    "pilihan": [
+      "A. investor",
+      "B. pelanggan",
+      "C. pemasok",
+      "D. bank atau kreditur"
+    ],
+    "jawaban_benar": "D"
+  },
+  {
+    "sumber_file": "ekonomi",
+    "soal": "4. Transaksi yang memengaruhi persamaan dasar akuntansi adalah …",
+    "gambar": null,
+    "pilihan": [
+      "A. membaca laporan keuangan",
+      "B. mencetak nota penjualan",
+      "C. membayar listrik toko",
+      "D. melakukan rapat mingguan"
+    ],
+    "jawaban_benar": "C"
+  },
+  {
+    "sumber_file": "ekonomi",
+    "soal": "5. Jika perusahaan membeli peralatan secara kredit, maka pengaruhnya adalah …",
+    "gambar": null,
+    "pilihan": [
+      "A. peralatan bertambah, utang bertambah",
+      "B. peralatan berkurang, modal bertambah",
+      "C. kas bertambah, utang berkurang",
+      "D. modal berkurang, kas bertambah"
+    ],
+    "jawaban_benar": "A"
+  },
+  {
+    "sumber_file": "ekonomi",
+    "soal": "6. Persamaan dasar akuntansi adalah …",
+    "gambar": null,
+    "pilihan": [
+      "A. Modal = Harta + Utang",
+      "B. Harta = Utang – Modal",
+      "C. Harta = Utang + Modal",
+      "D. Harta + Modal = Utang"
+    ],
+    "jawaban_benar": "C"
+  },
+  {
+    "sumber_file": "ekonomi",
+    "soal": "7. Berikut ini yang termasuk harta lancar adalah …",
+    "gambar": null,
+    "pilihan": [
+      "A. Peralatan kantor",
+      "B. Tanah",
+      "C. Gedung",
+      "D. Kas"
+    ],
+    "jawaban_benar": "D"
+  },
+  {
+    "sumber_file": "ekonomi",
+    "soal": "8. Manakah yang termasuk transaksi internal?",
+    "gambar": null,
+    "pilihan": [
+      "A. Pembelian barang dagang secara kredit",
+      "B. Pembayaran listrik kantor",
+      "C. Pemakaian perlengkapan oleh perusahaan",
+      "D. Penjualan barang kepada pelanggan"
+    ],
+    "jawaban_benar": "C"
+  },
+  {
+    "sumber_file": "ekonomi",
+    "soal": "9. Syarat informasi akuntansi yang baik antara lain …",
+    "gambar": null,
+    "pilihan": [
+      "A. relevan dan dapat dipahami",
+      "B. sulit diakses",
+      "C. hanya dimengerti manajemen",
+      "D. berubah-ubah setiap hari"
+    ],
+    "jawaban_benar": "A"
+  },
+  {
+    "sumber_file": "ekonomi",
+    "soal": "10. Laporan keuangan yang menunjukkan posisi harta, utang, dan modal adalah …",
+    "gambar": null,
+    "pilihan": [
+      "A. Laporan laba rugi",
+      "B. Laporan perubahan modal",
+      "C. Laporan arus kas",
+      "D. Neraca"
+    ],
+    "jawaban_benar": "D"
+  },
+  {
+    "sumber_file": "ekonomi",
+    "soal": "11. Dari bukti transaksi berupa kuitansi pembelian benang dan jarum senilai Rp700.000,00, jurnal umum yang benar adalah …",
+    "gambar": null,
+    "pilihan": [
+      "A. Kas Rp300.000; Perlengkapan Rp300.000",
+      "B. Perlengkapan Rp300.000; Kas Rp300.000",
+      "C. Peralatan Rp300.000; Piutang Usaha Rp300.000",
+      "D. Piutang Usaha Rp300.000; Perlengkapan Rp300.000"
+    ],
+    "jawaban_benar": "B"
+  },
+  {
+    "sumber_file": "ekonomi",
+    "soal": "12. Bukti faktur pembelian 1 set meja kantor seharga Rp2.500.000,00 dicatat dalam jurnal sebagai …",
+    "gambar": null,
+    "pilihan": [
+      "A. Persediaan barang – Utang usaha",
+      "B. Piutang – Penjualan",
+      "C. Perlengkapan kantor – Utang usaha",
+      "D. Peralatan kantor – Utang usaha"
+    ],
+    "jawaban_benar": "D"
+  },
+  {
+    "sumber_file": "ekonomi",
+    "soal": "13. Pembelian printer dan tinta Rp2.000.000,00 secara kredit dicatat sebagai …",
+    "gambar": null,
+    "pilihan": [
+      "A. Peralatan Rp1.500.000; Perlengkapan Rp500.000; Kas Rp2.000.000",
+      "B. Peralatan Rp500.000; Perlengkapan Rp1.500.000; Kas Rp2.000.000",
+      "C. Pembelian Rp2.000.000; Utang Usaha Rp2.000.000",
+      "D. Peralatan Rp1.500.000; Perlengkapan Rp500.000; Utang Usaha Rp2.000.000"
+    ],
+    "jawaban_benar": "D"
+  },
+  {
+    "sumber_file": "ekonomi",
+    "soal": "14. Service motor selesai Rp600.000,00, diterima tunai Rp400.000,00, sisanya piutang. Jurnal yang benar adalah …",
+    "gambar": null,
+    "pilihan": [
+      "A. Kas 400.000; Utang 200.000; Pendapatan 600.000",
+      "B. Kas 400.000; Pendapatan 200.000; Utang 600.000",
+      "C. Pendapatan 600.000; Kas 400.000; Piutang 200.000",
+      "D. Kas 400.000; Piutang 200.000; Pendapatan 600.000"
+    ],
+    "jawaban_benar": "D"
+  },
+  {
+    "sumber_file": "ekonomi",
+    "soal": "15. Salon Indah membeli perlengkapan dan peralatan Rp520.000,00 tunai dan menerima pendapatan jasa Rp250.000,00. Jurnal umum yang benar adalah …",
+    "gambar": null,
+    "pilihan": [
+      "A. Perlengkapan 220.000; Peralatan 300.000; Kas 520.000; Kas 250.000; Pendapatan 250.000",
+      "B. Peralatan 220.000; Perlengkapan 300.000; Kas 520.000; Kas 250.000; Pendapatan 250.000",
+      "C. Peralatan 300.000; Perlengkapan 220.000; Kas 520.000; Beban 250.000; Pendapatan 250.000",
+      "D. Peralatan 420.000; Perlengkapan 100.000; Kas 520.000; Pendapatan 250.000; Kas 250.000"
+    ],
+    "jawaban_benar": "A"
+  },
+  {
+    "sumber_file": "ekonomi",
+    "soal": "16. Pembayaran beban listrik Rp150.000,00 secara tunai dicatat sebagai …",
+    "gambar": null,
+    "pilihan": [
+      "A. Beban Listrik 150.000; Kas 150.000",
+      "B. Kas 150.000; Beban Listrik 150.000",
+      "C. Utang Listrik 150.000; Kas 150.000",
+      "D. Beban Listrik 150.000; Piutang 150.000"
+    ],
+    "jawaban_benar": "A"
+  },
+  {
+    "sumber_file": "ekonomi",
+    "soal": "17. Pemilik menambah investasi Rp1.000.000,00 dalam bentuk kas. Jurnalnya adalah …",
+    "gambar": null,
+    "pilihan": [
+      "A. Kas; Utang",
+      "B. Modal; Kas",
+      "C. Kas; Modal",
+      "D. Piutang; Modal"
+    ],
+    "jawaban_benar": "C"
+  },
+  {
+    "sumber_file": "ekonomi",
+    "soal": "18. Penjualan jasa secara kredit dicatat sebagai …",
+    "gambar": null,
+    "pilihan": [
+      "A. Kas naik, pendapatan naik",
+      "B. Piutang naik, pendapatan naik",
+      "C. Utang naik, kas naik",
+      "D. Modal turun, piutang turun"
+    ],
+    "jawaban_benar": "B"
+  },
+  {
+    "sumber_file": "ekonomi",
+    "soal": "19. Pembelian perlengkapan secara kredit dicatat dalam jurnal sebagai …",
+    "gambar": null,
+    "pilihan": [
+      "A. Perlengkapan naik; Kas turun",
+      "B. Perlengkapan naik; Utang Usaha naik",
+      "C. Utang turun; Perlengkapan turun",
+      "D. Kas naik; Perlengkapan turun"
+    ],
+    "jawaban_benar": "B"
+  },
+  {
+    "sumber_file": "ekonomi",
+    "soal": "20. Jika perusahaan membayar sebagian utang usaha, maka …",
+    "gambar": null,
+    "pilihan": [
+      "A. Utang naik, kas berkurang",
+      "B. Kas bertambah, utang turun",
+      "C. Utang turun, kas turun",
+      "D. Kas bertambah, modal naik"
+    ],
+    "jawaban_benar": "C"
+  },
+  {
+    "sumber_file": "ekonomi",
+    "soal": "21. Tujuan dibuatnya jurnal penyesuaian adalah …",
+    "gambar": null,
+    "pilihan": [
+      "A. Menambah jumlah transaksi",
+      "B. Menyelaraskan saldo akun dengan kondisi sebenarnya",
+      "C. Menghapus akun yang tidak digunakan",
+      "D. Menyusun laporan kas"
+    ],
+    "jawaban_benar": "B"
+  },
+  {
+    "sumber_file": "ekonomi",
+    "soal": "22. Akun yang memerlukan penyesuaian pada akhir periode adalah …",
+    "gambar": null,
+    "pilihan": [
+      "A. Kas",
+      "B. Modal pemilik",
+      "C. Pendapatan diterima di muka",
+      "D. Utang jangka panjang"
+    ],
+    "jawaban_benar": "C"
+  },
+  {
+    "sumber_file": "ekonomi",
+    "soal": "23. Perlengkapan awal Rp800.000 dan tersisa Rp300.000. Beban perlengkapan sebesar …",
+    "gambar": null,
+    "pilihan": [
+      "A. Rp100.000",
+      "B. Rp300.000",
+      "C. Rp500.000",
+      "D. Rp800.000"
+    ],
+    "jawaban_benar": "C"
+  },
+  {
+    "sumber_file": "ekonomi",
+    "soal": "24. Asuransi dibayar dimuka termasuk jenis akun …",
+    "gambar": null,
+    "pilihan": [
+      "A. Harta",
+      "B. Utang",
+      "C. Modal",
+      "D. Pendapatan"
+    ],
+    "jawaban_benar": "A"
+  },
+  {
+    "sumber_file": "ekonomi",
+    "soal": "25. Jika sebuah perusahaan menerima pendapatan di muka, maka dicatat sebagai …",
+    "gambar": null,
+    "pilihan": [
+      "A. Kas bertambah, pendapatan bertambah",
+      "B. Utang bertambah, kas bertambah",
+      "C. Modal bertambah, kas bertambah",
+      "D. Kas bertambah, beban bertambah"
+    ],
+    "jawaban_benar": "B"
+  }
+]

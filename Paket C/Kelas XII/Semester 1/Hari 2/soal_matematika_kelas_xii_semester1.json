@@ -1,0 +1,302 @@
+[
+  {
+    "sumber_file": "matematika",
+    "soal": "1. Dua titik dikatakan berimpit apabila …",
+    "gambar": null,
+    "pilihan": [
+      "A. Kedua titik memiliki jarak tertentu",
+      "B. Kedua titik tidak dapat dihubungkan",
+      "C. Kedua titik memiliki letak yang sama",
+      "D. Kedua titik memiliki jarak maksimal"
+    ],
+    "jawaban_benar": "C"
+  },
+  {
+    "sumber_file": "matematika",
+    "soal": "2. Jarak antara dua titik A dan B adalah …",
+    "gambar": null,
+    "pilihan": [
+      "A. Luas persegi yang dibuat oleh kedua titik",
+      "B. Panjang diagonal ruang yang melalui A dan B",
+      "C. Panjang ruas garis yang menghubungkan A dan B",
+      "D. Hasil kali koordinat kedua titik"
+    ],
+    "jawaban_benar": "C"
+  },
+  {
+    "sumber_file": "matematika",
+    "soal": "3. Pada kubus bersisi s, panjang diagonal bidang adalah …",
+    "gambar": null,
+    "pilihan": [
+      "A. s",
+      "B. 2s",
+      "C. s√2",
+      "D. s√3"
+    ],
+    "jawaban_benar": "C"
+  },
+  {
+    "sumber_file": "matematika",
+    "soal": "4. Pada kubus bersisi s, panjang diagonal ruang adalah …",
+    "gambar": null,
+    "pilihan": [
+      "A. s",
+      "B. s√2",
+      "C. s√3",
+      "D. 2s"
+    ],
+    "jawaban_benar": "C"
+  },
+  {
+    "sumber_file": "matematika",
+    "soal": "5. Jarak titik ke garis ditentukan dengan cara …",
+    "gambar": null,
+    "pilihan": [
+      "A. Menarik garis sembarang dari titik ke garis",
+      "B. Menarik garis yang sejajar garis tersebut",
+      "C. Menarik garis tegak lurus dari titik ke garis",
+      "D. Mengambil diagonal ruang dari bangun tersebut"
+    ],
+    "jawaban_benar": "C"
+  },
+  {
+    "sumber_file": "matematika",
+    "soal": "6. Jarak titik ke bidang ditentukan dengan …",
+    "gambar": null,
+    "pilihan": [
+      "A. Menarik garis yang sejajar bidang",
+      "B. Menarik garis tegak lurus dari titik ke bidang",
+      "C. Mengukur semua diagonal bidang",
+      "D. Mengambil jarak dari pusat bidang ke titik"
+    ],
+    "jawaban_benar": "B"
+  },
+  {
+    "sumber_file": "matematika",
+    "soal": "7. Pada kubus ABCD.EFGH, titik X adalah pertengahan AB. Maka jarak X ke bidang CDHG adalah …",
+    "gambar": null,
+    "pilihan": [
+      "A. s/2",
+      "B. s",
+      "C. s√2 / 2",
+      "D. s√3 / 2"
+    ],
+    "jawaban_benar": "B"
+  },
+  {
+    "sumber_file": "matematika",
+    "soal": "8. Jika panjang rusuk kubus 8 cm, maka jarak titik sudut ke diagonal ruang adalah …",
+    "gambar": null,
+    "pilihan": [
+      "A. 4√2",
+      "B. 4√3",
+      "C. 8√2",
+      "D. 8√3"
+    ],
+    "jawaban_benar": "A"
+  },
+  {
+    "sumber_file": "matematika",
+    "soal": "9. Pada limas beraturan T.ABCD, dengan TA = 12 cm dan diagonal alas AC = 10√2 cm, jarak T ke bidang ABCD adalah …",
+    "gambar": null,
+    "pilihan": [
+      "A. 5 cm",
+      "B. 8 cm",
+      "C. 10 cm",
+      "D. 12 cm"
+    ],
+    "jawaban_benar": "C"
+  },
+  {
+    "sumber_file": "matematika",
+    "soal": "10. Jika sebuah titik berada di luar bidang α, maka proyeksi titik tersebut pada bidang α adalah …",
+    "gambar": null,
+    "pilihan": [
+      "A. Titik pada perpanjangan garis",
+      "B. Titik yang dipilih sembarangan",
+      "C. Titik perpotongan garis tegak lurus dengan bidang",
+      "D. Titik sejajar dengan bidang"
+    ],
+    "jawaban_benar": "C"
+  },
+  {
+    "sumber_file": "matematika",
+    "soal": "11. Penyajian data yang menggunakan gambar atau simbol disebut …",
+    "gambar": null,
+    "pilihan": [
+      "A. Diagram batang",
+      "B. Diagram garis",
+      "C. Diagram gambar (piktogram)",
+      "D. Diagram lingkaran"
+    ],
+    "jawaban_benar": "C"
+  },
+  {
+    "sumber_file": "matematika",
+    "soal": "12. Tabel yang memuat nilai data dan banyak kemunculannya disebut …",
+    "gambar": null,
+    "pilihan": [
+      "A. Tabel biasa",
+      "B. Tabel distribusi frekuensi",
+      "C. Tabel statistik",
+      "D. Tabel diagram"
+    ],
+    "jawaban_benar": "B"
+  },
+  {
+    "sumber_file": "matematika",
+    "soal": "13. Rata-rata dari data 4, 6, 8, 10 adalah …",
+    "gambar": null,
+    "pilihan": [
+      "A. 6",
+      "B. 7",
+      "C. 8",
+      "D. 9"
+    ],
+    "jawaban_benar": "B"
+  },
+  {
+    "sumber_file": "matematika",
+    "soal": "14. Nilai tengah dari suatu kumpulan data setelah diurutkan disebut …",
+    "gambar": null,
+    "pilihan": [
+      "A. Modus",
+      "B. Mean",
+      "C. Median",
+      "D. Jangkauan"
+    ],
+    "jawaban_benar": "C"
+  },
+  {
+    "sumber_file": "matematika",
+    "soal": "15. Data: 2, 3, 3, 4, 5, 6. Modus dari data tersebut adalah …",
+    "gambar": null,
+    "pilihan": [
+      "A. 2",
+      "B. 3",
+      "C. 4",
+      "D. 5"
+    ],
+    "jawaban_benar": "B"
+  },
+  {
+    "sumber_file": "matematika",
+    "soal": "16. Selisih antara nilai terbesar dan nilai terkecil disebut …",
+    "gambar": null,
+    "pilihan": [
+      "A. Median",
+      "B. Modus",
+      "C. Rata-rata",
+      "D. Jangkauan"
+    ],
+    "jawaban_benar": "D"
+  },
+  {
+    "sumber_file": "matematika",
+    "soal": "17. Diagram yang tepat digunakan untuk menunjukkan perbandingan persentase adalah …",
+    "gambar": null,
+    "pilihan": [
+      "A. Diagram garis",
+      "B. Diagram batang",
+      "C. Diagram lingkaran",
+      "D. Histogram"
+    ],
+    "jawaban_benar": "C"
+  },
+  {
+    "sumber_file": "matematika",
+    "soal": "18. Ukuran penyebaran data yang menunjukkan seberapa jauh data menyebar dari rata-ratanya adalah …",
+    "gambar": null,
+    "pilihan": [
+      "A. Median",
+      "B. Modus",
+      "C. Simpangan rata-rata",
+      "D. Nilai tengah"
+    ],
+    "jawaban_benar": "C"
+  },
+  {
+    "sumber_file": "matematika",
+    "soal": "19. Jika suatu data memiliki nilai yang sama dan sering muncul, nilai tersebut disebut …",
+    "gambar": null,
+    "pilihan": [
+      "A. Mean",
+      "B. Median",
+      "C. Modus",
+      "D. Jangkauan"
+    ],
+    "jawaban_benar": "C"
+  },
+  {
+    "sumber_file": "matematika",
+    "soal": "20. Diagram yang biasanya digunakan untuk menunjukkan perkembangan data dari waktu ke waktu adalah …",
+    "gambar": null,
+    "pilihan": [
+      "A. Diagram gambar",
+      "B. Diagram batang",
+      "C. Diagram garis",
+      "D. Diagram lingkaran"
+    ],
+    "jawaban_benar": "C"
+  },
+  {
+    "sumber_file": "matematika",
+    "soal": "21. Dalam tabel distribusi frekuensi, interval kelas menunjukkan …",
+    "gambar": null,
+    "pilihan": [
+      "A. Banyak data",
+      "B. Nilai rata-rata",
+      "C. Rentang nilai dalam satu kelas",
+      "D. Jumlah kelas"
+    ],
+    "jawaban_benar": "C"
+  },
+  {
+    "sumber_file": "matematika",
+    "soal": "22. Histogram merupakan penyajian data dalam bentuk …",
+    "gambar": null,
+    "pilihan": [
+      "A. Gambar",
+      "B. Garis",
+      "C. Batang yang saling berdempetan",
+      "D. Lingkaran"
+    ],
+    "jawaban_benar": "C"
+  },
+  {
+    "sumber_file": "matematika",
+    "soal": "23. Frekuensi relatif biasanya dinyatakan dalam bentuk …",
+    "gambar": null,
+    "pilihan": [
+      "A. Pecahan dan persen",
+      "B. Bilangan bulat",
+      "C. Nilai tengah",
+      "D. Interval kelas"
+    ],
+    "jawaban_benar": "A"
+  },
+  {
+    "sumber_file": "matematika",
+    "soal": "24. Jika jumlah seluruh data adalah 40 dan frekuensi suatu kelas adalah 8, maka frekuensi relatifnya adalah …",
+    "gambar": null,
+    "pilihan": [
+      "A. 10%",
+      "B. 15%",
+      "C. 20%",
+      "D. 25%"
+    ],
+    "jawaban_benar": "C"
+  },
+  {
+    "sumber_file": "matematika",
+    "soal": "25. Ogive merupakan grafik yang dibuat berdasarkan …",
+    "gambar": null,
+    "pilihan": [
+      "A. Diagram batang",
+      "B. Distribusi frekuensi kumulatif",
+      "C. Distribusi frekuensi relatif",
+      "D. Diagram lingkaran"
+    ],
+    "jawaban_benar": "B"
+  }
+]
