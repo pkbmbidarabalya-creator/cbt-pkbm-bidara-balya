@@ -1,1 +1,431 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBT Ujian Online - PKBM Bidara Balya</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { 
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%); 
+            margin: 0; 
+            padding: 20px 10px; 
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container { 
+            width: 100%;
+            max-width: 700px; 
+            background: #ffffff; 
+            padding: 25px; 
+            border-radius: 16px; 
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); 
+        }
+        .header { text-align: center; margin-bottom: 25px; }
+        .header h1 { color: #1a365d; font-size: 24px; margin: 0; font-weight: 700; text-transform: uppercase; }
+        .header h2 { color: #2b6cb0; font-size: 15px; margin: 5px 0 0 0; font-weight: 500; }
+        
+        .form-group { margin-bottom: 18px; }
+        label { display: block; font-weight: 600; margin-bottom: 6px; color: #2d3748; font-size: 14px; }
+        input[type="text"], select { 
+            width: 100%; 
+            padding: 12px 14px; 
+            border: 2px solid #e2e8f0; 
+            border-radius: 8px; 
+            font-size: 14px; 
+            outline: none;
+            background-color: #f8fafc;
+        }
+        input[type="text"]:focus, select:focus { 
+            border-color: #3182ce; 
+            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.15);
+        }
+        
+        .btn { 
+            width: 100%; 
+            background: #2b6cb0; 
+            color: white; 
+            padding: 12px; 
+            border: none; 
+            border-radius: 8px; 
+            font-size: 15px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            transition: all 0.3s; 
+            margin-top: 10px;
+        }
+        .btn:hover { background: #1a365d; }
+        .btn-submit { background: #319795; }
+        .btn-submit:hover { background: #234e52; }
+        .btn-back { background: #e2e8f0; color: #4a5568; padding: 8px 14px; font-size: 13px; margin-bottom: 15px; width: auto; display: inline-block; border: none; border-radius: 6px; cursor: pointer; }
+        .btn-back:hover { background: #cbd5e0; }
 
+        .card { background: #f7fafc; padding: 15px; border-radius: 10px; border: 1px solid #e2e8f0; margin-bottom: 15px; }
+        .mapel-card { background: #ffffff; border: 1px solid #cbd5e0; padding: 15px; border-radius: 10px; margin-bottom: 12px; }
+        .mapel-card h4 { margin: 0 0 10px 0; color: #2d3748; }
+        
+        .mapel-btn { background: #3182ce; color: white; border: none; padding: 10px 16px; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 500; }
+        
+        .hidden { display: none; }
+        
+        .timer-box { background: #feebc8; border: 1px solid #fbd38d; color: #9b2c2c; padding: 10px 15px; border-radius: 8px; font-weight: 700; text-align: center; margin-bottom: 15px; font-size: 16px; }
+        .nav-soal-box { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; background: #edf2f7; padding: 12px; border-radius: 8px; }
+        .nav-num { width: 35px; height: 35px; border-radius: 6px; background: #e2e8f0; color: #4a5568; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 13px; border: 1px solid #cbd5e0; }
+        .nav-num.answered { background: #48bb78; color: white; border-color: #38a169; }
+
+        .soal-item { background: #ffffff; border: 1px solid #e2e8f0; padding: 16px; margin-bottom: 16px; border-radius: 8px; }
+        .soal-item p { margin: 0 0 12px 0; font-weight: 600; color: #2d3748; font-size: 15px; line-height: 1.5; }
+        .option-label { display: flex; align-items: center; margin: 8px 0; cursor: pointer; padding: 8px 12px; border-radius: 6px; border: 1px solid #edf2f7; transition: background 0.2s; font-size: 14px; }
+        .option-label:hover { background: #ebf8ff; border-color: #bee3f8; }
+        .option-label input { margin-right: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>PKBM BIDARA BALYA</h1>
+        <h2>Ruang Ujian Online (CBT)</h2>
+    </div>
+
+    <!-- LANGKAH 1: LOGIN SISWA & PILIH KELAS -->
+    <div id="step-login">
+        <div class="form-group">
+            <label for="namaSiswa">Nama Lengkap Siswa:</label>
+            <input type="text" id="namaSiswa" placeholder="Ketik nama lengkap sesuai absensi..." required>
+        </div>
+        <div class="form-group">
+            <label for="pilihSemester">Pilih Kelas & Semester:</label>
+            <select id="pilihSemester">
+                <option value="">-- Pilih Kelas & Semester --</option>
+                <!-- PAKET A -->
+                <option value="Kelas 4 - Semester 1">Paket A: Kelas IV - Semester 1</option>
+                <option value="Kelas 4 - Semester 2">Paket A: Kelas IV - Semester 2</option>
+                <option value="Kelas 5 - Semester 1">Paket A: Kelas V - Semester 1</option>
+                <option value="Kelas 5 - Semester 2">Paket A: Kelas V - Semester 2</option>
+                <option value="Kelas 6 - Semester 1">Paket A: Kelas VI - Semester 1</option>
+                <option value="Kelas 6 - Semester 2">Paket A: Kelas VI - Semester 2</option>
+                <!-- PAKET B -->
+                <option value="Kelas 7 - Semester 1">Paket B: Kelas VII - Semester 1</option>
+                <option value="Kelas 7 - Semester 2">Paket B: Kelas VII - Semester 2</option>
+                <option value="Kelas 8 - Semester 1">Paket B: Kelas VIII - Semester 1</option>
+                <option value="Kelas 8 - Semester 2">Paket B: Kelas VIII - Semester 2</option>
+                <option value="Kelas 9 - Semester 1">Paket B: Kelas IX - Semester 1</option>
+                <option value="Kelas 9 - Semester 2">Paket B: Kelas IX - Semester 2</option>
+                <!-- PAKET C -->
+                <option value="Kelas 10 - Semester 1">Paket C: Kelas X - Semester 1</option>
+                <option value="Kelas 10 - Semester 2">Paket C: Kelas X - Semester 2</option>
+                <option value="Kelas 11 - Semester 1">Paket C: Kelas XI - Semester 1</option>
+                <option value="Kelas 11 - Semester 2">Paket C: Kelas XI - Semester 2</option>
+                <option value="Kelas 12 - Semester 1">Paket C: Kelas XII - Semester 1</option>
+                <option value="Kelas 12 - Semester 2">Paket C: Kelas XII - Semester 2</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="pilihHari">Pilih Hari Ujian:</label>
+            <select id="pilihHari">
+                <option value="">-- Pilih Hari Ujian --</option>
+                <option value="Hari 1">Hari 1</option>
+                <option value="Hari 2">Hari 2</option>
+                <option value="Hari 3">Hari 3</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="tokenUjian">Token Ujian Harian:</label>
+            <input type="text" id="tokenUjian" placeholder="Ketik token dari pengawas..." required>
+        </div>
+        <button class="btn" onclick="verifikasiToken()">Masuk Ruang Ujian 🚀</button>
+    </div>
+
+    <!-- LANGKAH 2: DAFTAR MATA PELAJARAN -->
+    <div id="step-mapel" class="hidden">
+        <button class="btn btn-back" onclick="kembaliKeLogin()">← Keluar / Ganti Identitas</button>
+        <div class="card">
+            <p style="margin:0 0 5px 0; color:#4a5568;"><strong>Siswa:</strong> <span id="dispNama"></span></p>
+            <p style="margin:0; color:#4a5568;"><strong>Jadwal:</strong> <span id="dispSem"></span> (<span id="dispHari"></span>)</p>
+        </div>
+        <h3 style="color:#1a365d; font-size:16px;">Mata Pelajaran Hari Ini:</h3>
+        <div id="daftarMapelContainer"></div>
+    </div>
+
+    <!-- LANGKAH 3: LEMBAR SOAL UJIAN -->
+    <div id="step-soal" class="hidden">
+        <button class="btn btn-back" onclick="kembaliKeMapel()">← Kembali ke Daftar Mapel</button>
+        
+        <div class="timer-box">
+            ⏱️ Sisa Waktu Ujian: <span id="timerDisplay">60:00</span>
+        </div>
+
+        <div class="card" style="border-left: 4px solid #3182ce;">
+            <h3 id="judulMapel" style="margin:0; color:#1a365d; font-size:16px;"></h3>
+        </div>
+
+        <p style="font-size:13px; font-weight:600; color:#4a5568; margin-bottom:5px;">Status Lembar Jawab (Abu-abu: Belum / Hijau: Sudah):</p>
+        <div id="navSoalContainer" class="nav-soal-box"></div>
+
+        <form id="formSoal">
+            <div id="soalContainer"></div>
+            <button type="button" class="btn btn-submit" onclick="hitungDanKirimNilai(false)">Selesai & Kirim Jawaban 📤</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxl-kk96fJ4mPazFjr4eVMUSs73Zcrr-LNuvnvd6ILGApqtQ8f66zZLk7vaiv7KtFvFcA/exec";
+    const GITHUB_RAW_BASE = "https://raw.githubusercontent.com/pkbmbidarabalya-creator/pkbm-bidara-balya/main";
+
+    const databaseLink = {
+        "Kelas 5 - Semester 1": { 
+            ujian: [
+                { mapel: "Pendidikan Agama", hari: "Hari 1", token: "HARI1KELAS5", link: `${GITHUB_RAW_BASE}/Paket A/Kelas V/Semester 1/Hari 1/soal_agama_kelas_v_semester1.json` },
+                { mapel: "Bahasa Indonesia", hari: "Hari 1", token: "HARI1KELAS5", link: `${GITHUB_RAW_BASE}/Paket A/Kelas V/Semester 1/Hari 1/soal_bahasa_indonesia_kelas_v_semester1.json` },
+                { mapel: "Bahasa Inggris", hari: "Hari 1", token: "HARI1KELAS5", link: `${GITHUB_RAW_BASE}/Paket A/Kelas V/Semester 1/Hari 1/soal_bahasa_inggris_kelas_v_semester1.json` },
+                { mapel: "IPA", hari: "Hari 2", token: "HARI2KELAS5", link: `${GITHUB_RAW_BASE}/Paket A/Kelas V/Semester 1/Hari 2/soal_ipa_kelas_v_semester1.json` },
+                { mapel: "IPS", hari: "Hari 2", token: "HARI2KELAS5", link: `${GITHUB_RAW_BASE}/Paket A/Kelas V/Semester 1/Hari 2/soal_ips_kelas_v_semester1.json` },
+                { mapel: "Matematika", hari: "Hari 2", token: "HARI2KELAS5", link: `${GITHUB_RAW_BASE}/Paket A/Kelas V/Semester 1/Hari 2/soal_matematika_kelas_v_semester1.json` },
+                { mapel: "PJOK", hari: "Hari 3", token: "HARI3KELAS5", link: `${GITHUB_RAW_BASE}/Paket A/Kelas V/Semester 1/Hari 3/soal_pjok_kelas_v_semester1.json` },
+                { mapel: "PPKn", hari: "Hari 3", token: "HARI3KELAS5", link: `${GITHUB_RAW_BASE}/Paket A/Kelas V/Semester 1/Hari 3/soal_ppkn_kelas_v_semester1.json` },
+                { mapel: "Seni Budaya", hari: "Hari 3", token: "HARI3KELAS5", link: `${GITHUB_RAW_BASE}/Paket A/Kelas V/Semester 1/Hari 3/soal_senibudaya_v_semester1.json` }
+            ]
+        },
+        "Kelas 10 - Semester 1": { 
+            ujian: [
+                { mapel: "Pendidikan Agama", hari: "Hari 1", token: "HARI1KELAS10", link: `${GITHUB_RAW_BASE}/Paket C/Kelas X/Semester 1/Hari 1/soal_agama_kelas_x_semester1.json` },
+                { mapel: "Bahasa Indonesia", hari: "Hari 1", token: "HARI1KELAS10", link: `${GITHUB_RAW_BASE}/Paket C/Kelas X/Semester 1/Hari 1/soal_bahasa_indonesia_kelas_x_semester1.json` },
+                { mapel: "Bahasa Inggris", hari: "Hari 1", token: "HARI1KELAS10", link: `${GITHUB_RAW_BASE}/Paket C/Kelas X/Semester 1/Hari 1/soal_bahasa_inggris_kelas_x_semester1.json` },
+                { mapel: "Ekonomi", hari: "Hari 1", token: "HARI1KELAS10", link: `${GITHUB_RAW_BASE}/Paket C/Kelas X/Semester 1/Hari 1/soal_ekonomi_kelas_x_semester1.json` },
+                { mapel: "Sosiologi", hari: "Hari 2", token: "HARI2KELAS10", link: `${GITHUB_RAW_BASE}/Paket C/Kelas X/Semester 1/Hari 2/soal_sosiologi_kelas_x_semester1.json` },
+                { mapel: "Geografi", hari: "Hari 2", token: "HARI2KELAS10", link: `${GITHUB_RAW_BASE}/Paket C/Kelas X/Semester 1/Hari 2/soal_geografi_kelas_x_semester1.json` },
+                { mapel: "Matematika", hari: "Hari 2", token: "HARI2KELAS10", link: `${GITHUB_RAW_BASE}/Paket C/Kelas X/Semester 1/Hari 2/soal_matematika_kelas_x_semester1.json` },
+                { mapel: "PJOK", hari: "Hari 3", token: "HARI3KELAS10", link: `${GITHUB_RAW_BASE}/Paket C/Kelas X/Semester 1/Hari 3/soal_pjok_kelas_x_semester1.json` },
+                { mapel: "PPKn", hari: "Hari 3", token: "HARI3KELAS10", link: `${GITHUB_RAW_BASE}/Paket C/Kelas X/Semester 1/Hari 3/soal_ppkn_kelas_x_semester1.json` },
+                { mapel: "Seni Budaya", hari: "Hari 3", token: "HARI3KELAS10", link: `${GITHUB_RAW_BASE}/Paket C/Kelas X/Semester 1/Hari 3/soal_senibudaya_kelas_x_semester1.json` }
+            ]
+        }
+    };
+
+    let currentSiswa = "";
+    let currentSemester = "";
+    let currentHari = "";
+    let currentMapel = "";
+    let currentDataSoal = [];
+    let timerInterval = null;
+
+    function verifikasiToken() {
+        const nama = document.getElementById("namaSiswa").value.trim();
+        const sem = document.getElementById("pilihSemester").value;
+        const hari = document.getElementById("pilihHari").value;
+        const token = document.getElementById("tokenUjian").value.trim();
+
+        if (!nama || !sem || !hari || !token) {
+            alert("Harap isi Nama, Kelas/Semester, Hari Ujian, dan Token!");
+            return;
+        }
+
+        const dataSem = databaseLink[sem];
+        if (!dataSem || !dataSem.ujian) {
+            alert("Data ujian untuk kelas/semester ini belum diatur.");
+            return;
+        }
+
+        const mapelHariIni = dataSem.ujian.filter(item => item.hari === hari);
+
+        if (mapelHariIni.length === 0) {
+            alert("Belum ada daftar soal untuk kelas/hari ini.");
+            return;
+        }
+
+        if (mapelHariIni[0].token !== token) {
+            alert("Token Ujian Salah!");
+            return;
+        }
+
+        currentSiswa = nama;
+        currentSemester = sem;
+        currentHari = hari;
+
+        document.getElementById("dispNama").innerText = nama;
+        document.getElementById("dispSem").innerText = sem;
+        document.getElementById("dispHari").innerText = hari;
+
+        const container = document.getElementById("daftarMapelContainer");
+        container.innerHTML = "";
+
+        mapelHariIni.forEach(item => {
+            const card = document.createElement("div");
+            card.className = "mapel-card";
+            card.innerHTML = `
+                <h4>${item.mapel}</h4>
+                <button class="mapel-btn" onclick="muatSoal('${item.mapel}', '${item.link}')">Mulai Kerjakan Soal 📝</button>
+            `;
+            container.appendChild(card);
+        });
+
+        document.getElementById("step-login").classList.add("hidden");
+        document.getElementById("step-mapel").classList.remove("hidden");
+    }
+
+    function kembaliKeLogin() {
+        document.getElementById("step-mapel").classList.add("hidden");
+        document.getElementById("step-login").classList.remove("hidden");
+    }
+
+    function kembaliKeMapel() {
+        if (confirm("Apakah Anda yakin ingin keluar dari lembar soal? Kemajuan Anda pada soal ini belum tersimpan.")) {
+            clearInterval(timerInterval);
+            document.getElementById("step-soal").classList.add("hidden");
+            document.getElementById("step-mapel").classList.remove("hidden");
+        }
+    }
+
+    function muatSoal(mapel, jsonLink) {
+        currentMapel = mapel;
+        document.getElementById("judulMapel").innerText = "Mata Pelajaran: " + mapel;
+        
+        fetch(jsonLink)
+            .then(res => {
+                if(!res.ok) throw new Error("Gagal mengambil data soal.");
+                return res.json();
+            })
+            .then(data => {
+                currentDataSoal = data;
+                tampilkanLembarSoal(data);
+                mulaiTimer(60);
+                document.getElementById("step-mapel").classList.add("hidden");
+                document.getElementById("step-soal").classList.remove("hidden");
+            })
+            .catch(err => {
+                alert("Gagal memuat soal. Pastikan koneksi internet stabil!");
+                console.error(err);
+            });
+    }
+
+    function mulaiTimer(durasiMenit) {
+        clearInterval(timerInterval);
+        let sisaDetik = durasiMenit * 60;
+        const display = document.getElementById("timerDisplay");
+
+        timerInterval = setInterval(() => {
+            let m = Math.floor(sisaDetik / 60);
+            let s = sisaDetik % 60;
+
+            m = m < 10 ? "0" + m : m;
+            s = s < 10 ? "0" + s : s;
+
+            display.innerText = `${m}:${s}`;
+
+            if (--sisaDetik < 0) {
+                clearInterval(timerInterval);
+                alert("Waktu pengerjaan telah habis! Jawaban Anda akan otomatis dikirim.");
+                hitungDanKirimNilai(true);
+            }
+        }, 1000);
+    }
+
+    function tampilkanLembarSoal(soalArray) {
+        const container = document.getElementById("soalContainer");
+        const navContainer = document.getElementById("navSoalContainer");
+        container.innerHTML = "";
+        navContainer.innerHTML = "";
+
+        soalArray.forEach((q, idx) => {
+            const navNum = document.createElement("div");
+            navNum.className = "nav-num";
+            navNum.id = `nav_num_${idx}`;
+            navNum.innerText = idx + 1;
+            navContainer.appendChild(navNum);
+
+            const div = document.createElement("div");
+            div.className = "soal-item";
+
+            let teksSoal = q.soal || q.pertanyaan || "";
+            teksSoal = teksSoal.replace(/^\d+[\.\)]\s*/, '');
+
+            let pilihanHTML = "";
+            if (q.pilihan && Array.isArray(q.pilihan)) {
+                q.pilihan.forEach((pil, pIdx) => {
+                    pilihanHTML += `
+                        <label class="option-label">
+                            <input type="radio" name="soal_${idx}" value="${pil}" onchange="updateIndikatorSoal(${idx})"> ${pil}
+                        </label>
+                    `;
+                });
+            }
+
+            div.innerHTML = `<p>${idx + 1}. ${teksSoal}</p>${pilihanHTML}`;
+            container.appendChild(div);
+        });
+    }
+
+    function updateIndikatorSoal(indexSoal) {
+        const navNum = document.getElementById(`nav_num_${indexSoal}`);
+        if (navNum) {
+            navNum.classList.add("answered");
+        }
+    }
+
+    function hitungDanKirimNilai(isAutoSubmit = false) {
+        if (!isAutoSubmit) {
+            if (!confirm(`Apakah Anda yakin ingin menyelesaikan dan mengirim jawaban ujian ${currentMapel}?`)) {
+                return;
+            }
+        }
+
+        clearInterval(timerInterval);
+
+        let skor = 0;
+        const totalSoal = currentDataSoal.length;
+
+        currentDataSoal.forEach((q, idx) => {
+            const selected = document.querySelector(`input[name="soal_${idx}"]:checked`);
+            if (selected) {
+                const jawabanUser = selected.value.trim();
+                
+                if (q.jawaban_benar) {
+                    const kunciHuruf = q.jawaban_benar.toString().trim().toUpperCase();
+                    if (jawabanUser.startsWith(kunciHuruf)) {
+                        skor++;
+                    }
+                } else if (q.jawaban !== undefined) {
+                    if (parseInt(jawabanUser) === q.jawaban) {
+                        skor++;
+                    }
+                }
+            }
+        });
+
+        const nilaiFinal = Math.round((skor / totalSoal) * 100);
+
+        const payload = {
+            nama: currentSiswa,
+            semester: currentSemester,
+            hari: currentHari,
+            mapel: currentMapel,
+            nilai: nilaiFinal
+        };
+
+        fetch(SCRIPT_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        })
+        .then(() => {
+            alert("Jawaban Anda berhasil dikirim ke sistem!");
+            document.getElementById("step-soal").classList.add("hidden");
+            document.getElementById("step-mapel").classList.remove("hidden");
+        })
+        .catch(err => {
+            alert("Gagal mengirim jawaban. Silakan coba lagi.");
+            console.error(err);
+        });
+    }
+</script>
+
+</body>
+</html>
