@@ -322,35 +322,33 @@ async function mulaiUjian() {
   }
 }
 
-function renderSoal(daftarSoal) {
-  const wadah = document.getElementById('wadah-soal');
-  wadah.innerHTML = "";
+(    daftarSoal.forEach((item, index) => {
+        const cardSoal = document.createElement('div');
+        cardSoal.className = 'card';
 
-  daftarSoal.forEach((item, index) => {
-    const cardSoal = document.createElement('div');
-    cardSoal.className = 'card';
+        let htmlOpsi = '';
+        if (item.pilihan && Array.isArray(item.pilihan)) {
+            htmlOpsi = '<div class="opsi-container">';
+            item.pilihan.forEach((opsiTeks, idx) => {
+                // Membuat huruf A, B, C, D berdasarkan nomor urut (0=A, 1=B, dst)
+                const hurufOpsi = String.fromCharCode(65 + idx); 
+                htmlOpsi += `
+                    <label class="opsi-label">
+                        <input type="radio" name="soal_${index}" value="${hurufOpsi}">
+                        <span><strong>${hurufOpsi}.</strong> ${opsiTeks}</span>
+                    </label>
+                `;
+            });
+            htmlOpsi += '</div>';
+        }
 
-    let htmlOpsi = '';
-    if (item.opsi) {
-      htmlOpsi = '<div class="opsi-container">';
-      Object.keys(item.opsi).forEach(kunci => {
-        htmlOpsi += `
-          <label class="opsi-label">
-            <input type="radio" name="soal_${index}" value="${kunci}">
-            <span><strong>${kunci}.</strong> ${item.opsi[kunci]}</span>
-          </label>
+        cardSoal.innerHTML = `
+            <p><strong>${index + 1}. ${item.soal}</strong></p>
+            ${htmlOpsi}
         `;
-      });
-      htmlOpsi += '</div>';
-    }
+        wadah.appendChild(cardSoal);
+    });
 
-    cardSoal.innerHTML = `
-      <p style="font-weight: 600; font-size: 1rem;">${index + 1}. ${item.pertanyaan || item.soal}</p>
-      ${htmlOpsi}
-    `;
-    wadah.appendChild(cardSoal);
-  });
-}
 
 async function kirimJawaban() {
   const namaSiswa = document.getElementById('nama-siswa').value;
