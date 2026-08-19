@@ -322,7 +322,11 @@ async function mulaiUjian() {
   }
 }
 
- daftarSoal.forEach((item, index) => {
+ function renderSoal(daftarSoal) {
+    const wadah = document.getElementById('wadah-soal');
+    wadah.innerHTML = "";
+
+    daftarSoal.forEach((item, index) => {
         const cardSoal = document.createElement('div');
         cardSoal.className = 'card';
 
@@ -330,7 +334,6 @@ async function mulaiUjian() {
         if (item.pilihan && Array.isArray(item.pilihan)) {
             htmlOpsi = '<div class="opsi-container">';
             item.pilihan.forEach((opsiTeks, idx) => {
-                // Membuat huruf A, B, C, D berdasarkan nomor urut (0=A, 1=B, dst)
                 const hurufOpsi = String.fromCharCode(65 + idx); 
                 htmlOpsi += `
                     <label class="opsi-label">
@@ -348,6 +351,10 @@ async function mulaiUjian() {
         `;
         wadah.appendChild(cardSoal);
     });
+}
+
+
+
 
 
 async function kirimJawaban() {
