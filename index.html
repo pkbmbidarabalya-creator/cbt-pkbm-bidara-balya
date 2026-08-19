@@ -411,3 +411,31 @@ function hapusPesan() {
 
 </body>
 </html>
+<script>
+  // Fungsi utama untuk mengambil data soal dari folder Anda yang baru
+  function muatSoalCBT(paket, kelas, namaFileJson) {
+    // Menyusun url berdasarkan folder baru Anda (contoh: paket_a/kelas_v/soal_agama...)
+    const url = `${paket}/${kelas}/${namaFileJson}`;
+
+    fetch(url)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Gagal memuat file soal dari jalur: ' + url);
+        }
+        return response.json();
+      })
+      .then(dataSoal => {
+        console.log("Data CBT Berhasil Dimuat!", dataSoal);
+        
+        // JIKA ANDA INGIN MENAMPILKAN SOAL SECARA OTOMATIS:
+        // Panggil fungsi render/tampil soal Anda di sini menggunakan dataSoal
+      })
+      .catch(error => {
+        console.error("Waduh, ada error saat ambil file:", error);
+      });
+  }
+
+  // CONTOH CARA MENGGUNAKANNYA:
+  // Silakan ganti nama file di bawah ini sesuai dengan file asli yang ingin dites pertama kali
+  muatSoalCBT('paket_a', 'kelas_v', 'soal_agama_kelas_v_semester1.json');
+</script>
