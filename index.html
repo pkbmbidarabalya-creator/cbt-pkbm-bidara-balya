@@ -256,6 +256,7 @@
     </div>
 
     <button class="btn" onclick="mulaiUjian()">Mulai Ujian</button>
+
   </div>
 
   <!-- Wadah Soal Ujian -->
@@ -291,8 +292,15 @@ async function mulaiUjian() {
 
   tampilkanPesan("Sedang mengambil soal...", "blue");
   
-  const pathFolder = encodeURIComponent(namaPaketTerpilih);
-  const urlFileJson = `./${pathFolder}/soal.json`;
+          let urlFileJson = "";
+        if (namaPaketTerpilih === "Paket A") {
+            urlFileJson = "paket_a/kelas_v/Semester 1/Hari 1/soal_agama_kelas_v_semester1.json";
+        } else if (namaPaketTerpilih === "Paket B") {
+            urlFileJson = "paket_b/kelas_vii/Semester 1/Hari 1/soal_bahasa_indonesia_kelas_vii_semester1.json"; 
+        } else if (namaPaketTerpilih === "Paket C") {
+            urlFileJson = "paket_c/kelas_x/Semester 1/Hari 1/soal_bahasa_inggris_kelas_x_semester1.json";
+        }
+
 
   try {
     const response = await fetch(urlFileJson);
