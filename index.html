@@ -409,12 +409,18 @@ function hapusPesan() {
 }
 </script>
 
-</body>
-</html>
+
+
 <script>
+
+
   // Fungsi utama untuk mengambil data soal dari folder Anda yang baru
+  <script>
+  // Variabel untuk menyimpan data soal yang aktif
+  let semuaSoal = [];
+  let indeksSoalAktif = 0;
+
   function muatSoalCBT(paket, kelas, namaFileJson) {
-    // Menyusun url berdasarkan folder baru Anda (contoh: paket_a/kelas_v/soal_agama...)
     const url = `${paket}/${kelas}/${namaFileJson}`;
 
     fetch(url)
@@ -426,16 +432,55 @@ function hapusPesan() {
       })
       .then(dataSoal => {
         console.log("Data CBT Berhasil Dimuat!", dataSoal);
-        
-        // JIKA ANDA INGIN MENAMPILKAN SOAL SECARA OTOMATIS:
-        // Panggil fungsi render/tampil soal Anda di sini menggunakan dataSoal
+        semuaSoal = dataSoal; // Menyimpan data json ke variabel global
+        indeksSoalAktif = 0;   // Mulai dari soal pertama
+        tampilkanSoalKeLayar(); // Panggil fungsi untuk menampilkan ke web
       })
       .catch(error => {
         console.error("Waduh, ada error saat ambil file:", error);
       });
   }
 
-  // CONTOH CARA MENGGUNAKANNYA:
-  // Silakan ganti nama file di bawah ini sesuai dengan file asli yang ingin dites pertama kali
-  muatSoalCBT('paket_a', 'kelas_v', 'soal_agama_kelas_v_semester1.json');
+  // Fungsi otomatis untuk memunculkan teks soal dan pilihan ganda ke HTML
+  function tampilkanSoalKeLayar() {
+    // Pastikan ada data soal yang tersedia
+    if (semuaSoal.length === 0) return;
+
+    const dataAktif = semuaSoal[indeksSoalAktif];
+    
+    // Mencari atau membuat kotak container soal di HTML Anda
+    let kotakSoal = document.getElementById('konten-soal-cbt');
+    if (!kotakSoal) {
+      // Jika belum ada kotaknya di bodi HTML, kita buatkan otomatis di atas script
+      kotakSoal = document.createElement('div');
+      kotakSoal.id = 'konten-soal-cbt';
+      kotakSoal.style.padding = '20px';
+      kotakSoal.style.maxWidth = '600px';
+      kotakSoal.style.margin = '20px auto';
+      kotakSoal.style.background = '#ffffff';
+      kotakSoal.style.borderRadius = '8px';
+      kotakSoal.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
+      document.body.insertBefore(kotakSoal, document.body.lastElementChild.previousElementSibling);
+    }
+
+    // Menyusun elemen teks soal dan daftar pilihan ganda A, B, C, D
+    let listPilihan = '';
+    dataAktif.pilihan.forEach(pil => {
+      listPilihan += `<p style="padding:10px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:4px; cursor:pointer;">${pil}</p>`;
+    });
+
+    kotakSoal.innerHTML = `
+      <h3 style="margin-bottom:10px; color:#1e40af;">Soal Nomor ${dataAktif.nomor}</h3>
+      <p style="font-size:16px; margin-bottom:20px;">${dataAktif.soal}</p>
+      <div>${listPilihan}</div>
+    `;
+  }
+
+  // Menjalankan fungsi panggil data
+  muatSoalCBT('paket_a', 'kelas_v/Semester 1/Hari 1', 'soal_agama_kelas_v_semester1.json');
 </script>
+
+;
+</script>
+</body>
+</html>
