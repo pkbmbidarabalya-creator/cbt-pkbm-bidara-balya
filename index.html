@@ -1,1 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CBT Online - PKBM Bidara Balya</title>
 
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #eef4ff, #f8fbff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #1e293b;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 430px;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 24px;
+      padding: 32px 28px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+    }
+
+    .logo {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 18px;
+      border-radius: 20px;
+      background: #2563eb;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 25px;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #64748b;
+      font-size: 14px;
+      margin-bottom: 30px;
+      line-height: 1.5;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      padding: 15px;
+      border: 1px solid #dbe3ef;
+      border-radius: 12px;
+      font-size: 16px;
+      outline: none;
+      margin-bottom: 18px;
+    }
+
+    input:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.10);
+    }
+
+    button {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 12px;
+      background: #2563eb;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    .info {
+      margin-top: 22px;
+      padding: 14px;
+      border-radius: 12px;
+      background: #eff6ff;
+      color: #475569;
+      font-size: 13px;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 12px;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="card">
+
+      <div class="logo">
+        CBT
+      </div>
+
+      <h1>CBT Online</h1>
+
+      <p class="subtitle">
+        PKBM Bidara Balya<br>
+        Sistem Ujian Online
+      </p>
+
+      <form id="loginForm">
+
+        <label for="nisn">NISN</label>
+
+        <input
+          type="text"
+          id="nisn"
+          placeholder="Masukkan NISN"
+          maxlength="20"
+          autocomplete="off"
+          required
+        >
+
+        <button type="submit">
+          Masuk
+        </button>
+
+      </form>
+
+      <div class="info">
+        Gunakan NISN yang sudah terdaftar
+        untuk mengikuti ujian.
+      </div>
+
+    </div>
+
+    <div class="footer">
+      © 2026 PKBM Bidara Balya
+    </div>
+
+  </div>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const nisn = document.getElementById("nisn").value.trim();
+
+      if (!nisn) {
+        alert("Silakan masukkan NISN.");
+        return;
+      }
+
+      alert("Login akan kita hubungkan ke Supabase pada langkah berikutnya.");
+    });
+  </script>
+
+</body>
+</html>
