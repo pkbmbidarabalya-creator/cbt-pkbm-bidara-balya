@@ -726,7 +726,27 @@ function tampilkanSoal() {
                     </button>
 
                 </div>
-
+<div style="
+    margin-top:15px;
+    text-align:center;
+">
+    <button
+        onclick="selesaiUjian()"
+        style="
+            width:100%;
+            padding:15px;
+            border:none;
+            border-radius:12px;
+            background:#16a34a;
+            color:white;
+            font-weight:bold;
+            font-size:16px;
+            cursor:pointer;
+        "
+    >
+        ✓ SELESAI UJIAN
+    </button>
+</div>
             </div>
 
         </div>
@@ -813,6 +833,39 @@ function soalBerikutnya() {
 // TIMER
 // =====================================
 
+function selesaiUjian() {
+
+    const yakin = confirm(
+        "Apakah Anda yakin ingin menyelesaikan ujian?"
+    );
+
+    if (!yakin) {
+        return;
+    }
+
+    // Hentikan timer
+    if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+    }
+
+    // Hitung jumlah soal
+    const total = window.soalUjian.length;
+
+    // Hitung soal yang sudah dijawab
+    const dijawab = Object.keys(
+        window.jawabanSiswa || {}
+    ).length;
+
+    alert(
+        "UJIAN SELESAI\n\n" +
+        "Soal dijawab: " +
+        dijawab +
+        " dari " +
+        total +
+        " soal."
+    );
+}
 let timerInterval = null;
 let waktuTersisa = 45 * 60;
 
@@ -838,7 +891,7 @@ function mulaiTimer() {
 
         waktuTersisa--;
 
-        if (waktuTersisa < 0) {
+        if (waktuTersisa <= 0) {
 
             clearInterval(timerInterval);
             timerInterval = null;
