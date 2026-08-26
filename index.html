@@ -533,7 +533,7 @@ function tampilkanSoal() {
         const sudahDijawab =
             window.jawabanSiswa[window.soalUjian[i].id] !== undefined;
 
-        const aktif = i === window.nomorSoal;
+        const aktif = i === window.nomorSoal && !sudahDijawab;
 
         navigasiHTML += `
             <button
