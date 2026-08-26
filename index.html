@@ -3,7 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>CBT Online - PKBM Bidara Balya</title>
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
     * {
@@ -45,7 +49,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 28px;
+      font-size: 22px;
       font-weight: bold;
     }
 
@@ -101,6 +105,11 @@
       background: #1d4ed8;
     }
 
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
     .info {
       margin-top: 22px;
       padding: 14px;
@@ -110,6 +119,57 @@
       font-size: 13px;
       line-height: 1.5;
       text-align: center;
+    }
+
+    .error {
+      display: none;
+      margin-bottom: 15px;
+      padding: 12px;
+      border-radius: 10px;
+      background: #fef2f2;
+      color: #dc2626;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .dashboard {
+      display: none;
+    }
+
+    .student-name {
+      text-align: center;
+      font-size: 23px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .student-info {
+      text-align: center;
+      color: #64748b;
+      line-height: 1.7;
+      margin-bottom: 25px;
+    }
+
+    .exam-card {
+      padding: 20px;
+      background: #eff6ff;
+      border-radius: 18px;
+      margin-bottom: 20px;
+    }
+
+    .exam-card h2 {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .exam-card p {
+      color: #64748b;
+      margin-bottom: 15px;
+    }
+
+    .logout {
+      background: #e2e8f0;
+      color: #334155;
     }
 
     .footer {
@@ -125,7 +185,8 @@
 
   <div class="container">
 
-    <div class="card">
+    <!-- LOGIN -->
+    <div class="card" id="loginPage">
 
       <div class="logo">
         CBT
@@ -137,6 +198,8 @@
         PKBM Bidara Balya<br>
         Sistem Ujian Online
       </p>
+
+      <div class="error" id="errorMessage"></div>
 
       <form id="loginForm">
 
@@ -151,7 +214,7 @@
           required
         >
 
-        <button type="submit">
+        <button type="submit" id="loginButton">
           Masuk
         </button>
 
@@ -164,25 +227,234 @@
 
     </div>
 
+
+    <!-- DASHBOARD -->
+    <div class="card dashboard" id="dashboardPage">
+
+      <div class="logo">
+        CBT
+      </div>
+
+      <div class="student-name" id="studentName">
+        Nama Siswa
+      </div>
+
+      <div class="student-info">
+        <div id="studentNisn"></div>
+        <div id="studentPaket"></div>
+        <div id="studentKelas"></div>
+      </div>
+
+      <div class="exam-card">
+
+        <h2>Matematika</h2>
+
+        <p>
+          Semester 1 • Hari 1<br>
+          25 Soal • 45 Menit
+        </p>
+
+        <button onclick="mulaiUjian()">
+          Mulai Ujian
+        </button>
+
+      </div>
+
+      <button class="logout" onclick="logout()">
+        Keluar
+      </button>
+
+    </div>
+
     <div class="footer">
       © 2026 PKBM Bidara Balya
     </div>
 
   </div>
 
+
   <script>
-    document.getElementById("loginForm").addEventListener("submit", function(e) {
-      e.preventDefault();
 
-      const nisn = document.getElementById("nisn").value.trim();
+    // ================================
+    // SUPABASE
+    // ================================
 
-      if (!nisn) {
-        alert("Silakan masukkan NISN.");
-        return;
+    const SUPABASE_URL =
+      "https://yrapraumxkcvkgxgphgt.supabase.co";
+
+    const SUPABASE_KEY =
+      "sb_publishable_Yp3c7QV9vhvNEhkOdwhpqw_bLW8JWqx";
+
+    const supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+      );
+
+
+    // ================================
+    // LOGIN
+    // ================================
+
+    document
+      .getElementById("loginForm")
+      .addEventListener("submit", async function(e) {
+
+        e.preventDefault();
+
+        const nisn =
+          document
+            .getElementById("nisn")
+            .value
+            .trim();
+
+        const button =
+          document.getElementById("loginButton");
+
+        const error =
+          document.getElementById("errorMessage");
+
+        error.style.display = "none";
+
+        button.disabled = true;
+        button.textContent = "Memeriksa...";
+
+        try {
+
+          const { data, error: rpcError } =
+            await supabaseClient.rpc(
+              "login_siswa",
+              {
+                p_nisn: nisn
+              }
+            );
+
+          if (rpcError) {
+            throw rpcError;
+          }
+
+          if (!data || data.length === 0) {
+
+            error.textContent =
+              "NISN tidak ditemukan. Periksa kembali NISN kamu.";
+
+            error.style.display = "block";
+
+            button.disabled = false;
+            button.textContent = "Masuk";
+
+            return;
+          }
+
+          const siswa = data[0];
+
+          // Simpan data siswa sementara
+          sessionStorage.setItem(
+            "siswa",
+            JSON.stringify(siswa)
+          );
+
+          // Tampilkan dashboard
+          tampilkanDashboard(siswa);
+
+        } catch (err) {
+
+          console.error(err);
+
+          error.textContent =
+            "Terjadi kesalahan saat menghubungkan ke server.";
+
+          error.style.display = "block";
+
+          button.disabled = false;
+          button.textContent = "Masuk";
+        }
+
+      });
+
+
+    // ================================
+    // DASHBOARD
+    // ================================
+
+    function tampilkanDashboard(siswa) {
+
+      document
+        .getElementById("loginPage")
+        .style.display = "none";
+
+      document
+        .getElementById("dashboardPage")
+        .style.display = "block";
+
+      document
+        .getElementById("studentName")
+        .textContent = siswa.nama;
+
+      document
+        .getElementById("studentNisn")
+        .textContent = "NISN: " + siswa.nisn;
+
+      document
+        .getElementById("studentPaket")
+        .textContent = "Paket: " + siswa.paket;
+
+      document
+        .getElementById("studentKelas")
+        .textContent = "Kelas: " + siswa.kelas;
+    }
+
+
+    // ================================
+    // CEK LOGIN SEBELUMNYA
+    // ================================
+
+    const siswaTersimpan =
+      sessionStorage.getItem("siswa");
+
+    if (siswaTersimpan) {
+
+      try {
+
+        const siswa =
+          JSON.parse(siswaTersimpan);
+
+        tampilkanDashboard(siswa);
+
+      } catch(e) {
+
+        sessionStorage.removeItem("siswa");
+
       }
+    }
 
-      alert("Login akan kita hubungkan ke Supabase pada langkah berikutnya.");
-    });
+
+    // ================================
+    // MULAI UJIAN
+    // ================================
+
+    function mulaiUjian() {
+
+      alert(
+        "Login sudah berhasil!\n\n" +
+        "Halaman soal akan kita buat pada langkah berikutnya."
+      );
+
+    }
+
+
+    // ================================
+    // LOGOUT
+    // ================================
+
+    function logout() {
+
+      sessionStorage.removeItem("siswa");
+
+      location.reload();
+
+    }
+
   </script>
 
 </body>
