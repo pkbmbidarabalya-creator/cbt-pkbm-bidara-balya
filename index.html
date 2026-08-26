@@ -860,24 +860,61 @@ function selesaiUjian() {
         timerInterval = null;
     }
 
-    // Hitung jumlah soal
-    const total = window.soalUjian.length;
+    // Ambil data soal
+    const soalUjian = window.soalUjian || [];
+    const jawabanSiswa = window.jawabanSiswa || {};
 
-    // Hitung soal yang sudah dijawab
-    const dijawab = Object.keys(
-        window.jawabanSiswa || {}
-    ).length;
+    const total = soalUjian.length;
 
+    // Hitung jawaban
+    let dijawab = 0;
+    let benar = 0;
+
+    soalUjian.forEach(function(soal) {
+
+        const jawaban = jawabanSiswa[soal.id];
+
+        // Jika sudah dijawab
+        if (jawaban) {
+            dijawab++;
+
+            // Ambil jawaban benar
+            const jawabanBenar = String(
+                soal.jawaban_benar || ""
+            ).trim().toUpperCase();
+
+            const jawabanUser = String(
+                jawaban
+            ).trim().toUpperCase();
+
+            // Cocokkan jawaban
+            if (jawabanUser === jawabanBenar) {
+                benar++;
+            }
+        }
+    });
+
+    // Hitung salah dan kosong
+    const salah = dijawab - benar;
+    const kosong = total - dijawab;
+
+    // Hitung nilai
+    const nilai = total > 0
+        ? Math.round((benar / total) * 100)
+        : 0;
+
+    // Tampilkan hasil
     alert(
         "UJIAN SELESAI\n\n" +
-        "Soal dijawab: " +
-        dijawab +
-        " dari " +
-        total +
-        " soal."
+        "Total soal : " + total + "\n" +
+        "Dijawab    : " + dijawab + "\n" +
+        "Benar      : " + benar + "\n" +
+        "Salah      : " + salah + "\n" +
+        "Kosong     : " + kosong + "\n\n" +
+        "NILAI : " + nilai
     );
 }
-let timerInterval = null;
+    let timerInterval = null;
 let waktuTersisa = 45 * 60;
 
 function mulaiTimer() {
