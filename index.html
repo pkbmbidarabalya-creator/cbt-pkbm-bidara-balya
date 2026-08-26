@@ -433,28 +433,424 @@
     // MULAI UJIAN
     // ================================
 
-    function mulaiUjian() {
+    async function mulaiUjian() {
 
-      alert(
-        "Login sudah berhasil!\n\n" +
-        "Halaman soal akan kita buat pada langkah berikutnya."
-      );
+    // Ujian Matematika Paket B Kelas VIII
+    // Semester 1 - Hari 1
+    const ujianId = 1;
+
+    try {
+
+        // Ambil soal dari Supabase
+        const { data: soal, error } =
+            await supabaseClient.rpc(
+                "ambil_soal_ujian",
+                {
+                    p_ujian_id: ujianId
+                }
+            );
+
+        if (error) {
+            console.error(error);
+            alert("Gagal mengambil soal: " + error.message);
+            return;
+        }
+
+        if (!soal || soal.length === 0) {
+            alert("Soal ujian belum tersedia.");
+            return;
+        }
+
+        // Simpan soal sementara
+        window.soalUjian = soal;
+        window.nomorSoal = 0;
+        window.jawabanSiswa = {};
+
+        tampilkanSoal();
+
+    } catch (error) {
+
+        console.error(error);
+        alert("Terjadi kesalahan saat membuka ujian.");
 
     }
+}
 
+    // =====================================
+// TAMPILKAN SOAL UJIAN
+// =====================================
 
-    // ================================
-    // LOGOUT
-    // ================================
+function tampilkanSoal() {
 
-    function logout() {
+    const soal = window.soalUjian[window.nomorSoal];
 
-      sessionStorage.removeItem("siswa");
-
-      location.reload();
-
+    if (!soal) {
+        alert("Soal tidak ditemukan.");
+        return;
     }
 
+    const nomor = window.nomorSoal + 1;
+    const total = window.soalUjian.length;
+
+    let pilihanHTML = "";
+
+    soal.pilihan.forEach(function(pilihan, index) {
+
+        const huruf = String.fromCharCode(65 + index);
+
+        // Ambil teks pilihan setelah "A. "
+        const teksPilihan = pilihan.replace(/^[A-D]\.\s*/, "");
+
+        const sudahDipilih =
+            window.jawabanSiswa[soal.id] === huruf;
+
+        pilihanHTML += `
+            <button
+                onclick="pilihJawaban('${huruf}')"
+                style="
+                    width:100%;
+                    text-align:left;
+                    padding:16px;
+                    margin:8px 0;
+                    border-radius:12px;
+                    border:2px solid ${sudahDipilih ? '#2563eb' : '#e5e7eb'};
+                    background:${sudahDipilih ? '#dbeafe' : 'white'};
+                    cursor:pointer;
+                    font-size:16px;
+                "
+            >
+                <strong>${huruf}.</strong>
+                ${teksPilihan}
+            </button>
+        `;
+    });
+
+    let navigasiHTML = "";
+
+    for (let i = 0; i < total; i++) {
+
+        const sudahDijawab =
+            window.jawabanSiswa[window.soalUjian[i].id] !== undefined;
+
+        const aktif = i === window.nomorSoal;
+
+        navigasiHTML += `
+            <button
+                onclick="keSoal(${i})"
+                style="
+                    width:38px;
+                    height:38px;
+                    margin:4px;
+                    border-radius:50%;
+                    border:none;
+                    cursor:pointer;
+                    font-weight:bold;
+                    color:${aktif || sudahDijawab ? 'white' : '#333'};
+                    background:${
+                        aktif
+                        ? '#2563eb'
+                        : sudahDijawab
+                            ? '#16a34a'
+                            : '#ef4444'
+                    };
+                "
+            >
+                ${i + 1}
+            </button>
+        `;
+    }
+
+    document.body.innerHTML = `
+
+        <div style="
+            min-height:100vh;
+            background:#f3f6fb;
+            font-family:Arial,sans-serif;
+            padding:20px;
+        ">
+
+            <div style="
+                max-width:800px;
+                margin:auto;
+            ">
+
+                <!-- HEADER -->
+
+                <div style="
+                    background:white;
+                    padding:18px;
+                    border-radius:16px;
+                    margin-bottom:16px;
+                    box-shadow:0 3px 12px rgba(0,0,0,.08);
+                ">
+
+                    <div style="
+                        display:flex;
+                        justify-content:space-between;
+                        align-items:center;
+                    ">
+
+                        <div>
+                            <strong>MATEMATIKA</strong>
+                            <div style="color:#666;margin-top:5px;">
+                                Paket B • Kelas VIII
+                            </div>
+                        </div>
+
+                        <div style="
+                            background:#fee2e2;
+                            color:#dc2626;
+                            padding:10px 15px;
+                            border-radius:10px;
+                            font-weight:bold;
+                        ">
+                            ⏱ <span id="timer">45:00</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SOAL -->
+
+                <div style="
+                    background:white;
+                    padding:24px;
+                    border-radius:16px;
+                    box-shadow:0 3px 12px rgba(0,0,0,.08);
+                ">
+
+                    <div style="
+                        display:inline-block;
+                        background:#2563eb;
+                        color:white;
+                        padding:7px 14px;
+                        border-radius:20px;
+                        font-weight:bold;
+                        margin-bottom:18px;
+                    ">
+                        SOAL ${nomor} DARI ${total}
+                    </div>
+
+                    <div style="
+                        font-size:19px;
+                        line-height:1.6;
+                        margin-bottom:20px;
+                        white-space:pre-line;
+                    ">
+                        ${soal.soal}
+                    </div>
+
+                    ${soal.gambar ? `
+                        <img
+                            src="${soal.gambar}"
+                            style="
+                                max-width:100%;
+                                border-radius:12px;
+                                margin-bottom:15px;
+                            "
+                        >
+                    ` : ""}
+
+                    <div>
+                        ${pilihanHTML}
+                    </div>
+
+                </div>
+
+
+                <!-- NAVIGASI SOAL -->
+
+                <div style="
+                    background:white;
+                    margin-top:16px;
+                    padding:18px;
+                    border-radius:16px;
+                    text-align:center;
+                    box-shadow:0 3px 12px rgba(0,0,0,.08);
+                ">
+
+                    <div style="
+                        font-weight:bold;
+                        margin-bottom:10px;
+                    ">
+                        Navigasi Soal
+                    </div>
+
+                    <div>
+                        ${navigasiHTML}
+                    </div>
+
+                </div>
+
+
+                <!-- TOMBOL -->
+
+                <div style="
+                    display:flex;
+                    justify-content:space-between;
+                    gap:10px;
+                    margin-top:16px;
+                ">
+
+                    <button
+                        onclick="soalSebelumnya()"
+                        style="
+                            flex:1;
+                            padding:15px;
+                            border:none;
+                            border-radius:12px;
+                            background:#e5e7eb;
+                            font-weight:bold;
+                            cursor:pointer;
+                        "
+                    >
+                        ← Kembali
+                    </button>
+
+                    <button
+                        onclick="soalBerikutnya()"
+                        style="
+                            flex:1;
+                            padding:15px;
+                            border:none;
+                            border-radius:12px;
+                            background:#2563eb;
+                            color:white;
+                            font-weight:bold;
+                            cursor:pointer;
+                        "
+                    >
+                        Lanjut →
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+    `;
+
+    mulaiTimer();
+}
+
+
+// =====================================
+// PILIH JAWABAN
+// =====================================
+
+function pilihJawaban(huruf) {
+
+    const soal = window.soalUjian[window.nomorSoal];
+
+    window.jawabanSiswa[soal.id] = huruf;
+
+    tampilkanSoal();
+}
+
+
+// =====================================
+// PINDAH KE NOMOR SOAL
+// =====================================
+
+function keSoal(index) {
+
+    if (
+        index < 0 ||
+        index >= window.soalUjian.length
+    ) {
+        return;
+    }
+
+    window.nomorSoal = index;
+
+    tampilkanSoal();
+}
+
+
+// =====================================
+// SOAL SEBELUMNYA
+// =====================================
+
+function soalSebelumnya() {
+
+    if (window.nomorSoal > 0) {
+
+        window.nomorSoal--;
+
+        tampilkanSoal();
+    }
+}
+
+
+// =====================================
+// SOAL BERIKUTNYA
+// =====================================
+
+function soalBerikutnya() {
+
+    if (
+        window.nomorSoal <
+        window.soalUjian.length - 1
+    ) {
+
+        window.nomorSoal++;
+
+        tampilkanSoal();
+
+    } else {
+
+        alert(
+            "Ini adalah soal terakhir. " +
+            "Fitur selesai ujian akan kita buat berikutnya."
+        );
+    }
+}
+
+
+// =====================================
+// TIMER
+// =====================================
+
+let timerInterval = null;
+let waktuTersisa = 45 * 60;
+
+function mulaiTimer() {
+
+    if (timerInterval) {
+        return;
+    }
+
+    timerInterval = setInterval(function() {
+
+        const menit = Math.floor(waktuTersisa / 60);
+        const detik = waktuTersisa % 60;
+
+        const timer = document.getElementById("timer");
+
+        if (timer) {
+            timer.textContent =
+                String(menit).padStart(2, "0") +
+                ":" +
+                String(detik).padStart(2, "0");
+        }
+
+        waktuTersisa--;
+
+        if (waktuTersisa < 0) {
+
+            clearInterval(timerInterval);
+            timerInterval = null;
+
+            alert("Waktu ujian telah habis.");
+
+        }
+
+    }, 1000);
+}
+
+   
   </script>
 
 </body>
