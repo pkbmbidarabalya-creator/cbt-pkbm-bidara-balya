@@ -754,7 +754,7 @@ async function mulaiUjianDenganMapel(ujian) {
         // =====================================
         // AMBIL SOAL BERDASARKAN ujian_id
         // =====================================
-
+alert("DEBUG: ID UJIAN = " + ujian.id + " | MAPEL = " + ujian.mapel);
         const { data: soal, error } =
             await supabaseClient.rpc(
                 "ambil_soal_ujian",
