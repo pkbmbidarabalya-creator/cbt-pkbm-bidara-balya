@@ -621,49 +621,201 @@ button[onclick*="pilihJawaban"]:active {
     // MULAI UJIAN
     // ================================
 
-    async function mulaiUjian() {
+ async function mulaiUjian() {
 
-    // Ujian Matematika Paket B Kelas VIII
-    // Semester 1 - Hari 1
-    const ujianId = 1;
+    // Ambil data siswa yang sedang login
+    const siswa = JSON.parse(sessionStorage.getItem("siswa"));
+
+    if (!siswa) {
+        alert("Data siswa tidak ditemukan. Silakan login kembali.");
+        return;
+    }
+
+    // =========================================
+    // PENGATURAN SEMESTER & HARI
+    // =========================================
+
+    const semesterUjian = Number(window.semesterUjian || 1);
+    const hariUjian = Number(window.hariUjian || 1);
+
+    // =========================================
+    // CARI SEMUA UJIAN YANG SESUAI
+    // Paket + Kelas + Semester + Hari + AKTIF
+    // =========================================
+
+    const { data: daftarUjian, error: errorUjian } =
+        await supabaseClient
+            .from("ujian")
+            .select("*")
+            .eq("paket", siswa.paket)
+            .eq("kelas", siswa.kelas)
+            .eq("semester", semesterUjian)
+            .eq("hari", hariUjian)
+            .eq("aktif", true)
+            .order("id", { ascending: true });
+
+    if (errorUjian) {
+        console.error(errorUjian);
+        alert("Gagal mengambil daftar mata pelajaran.");
+        return;
+    }
+
+    // =========================================
+    // TIDAK ADA UJIAN
+    // =========================================
+
+    if (!daftarUjian || daftarUjian.length === 0) {
+        alert(
+            "Ujian untuk Paket " +
+            siswa.paket +
+            ", " +
+            siswa.kelas +
+            ", Semester " +
+            semesterUjian +
+            ", Hari " +
+            hariUjian +
+            " belum diaktifkan oleh admin."
+        );
+        return;
+    }
+
+    // =========================================
+    // JIKA HANYA ADA 1 MAPEL
+    // LANGSUNG MASUK UJIAN
+    // =========================================
+
+    if (daftarUjian.length === 1) {
+
+        const ujian = daftarUjian[0];
+
+        await mulaiUjianDenganMapel(ujian);
+
+        return;
+    }
+
+    // =========================================
+    // JIKA ADA BEBERAPA MAPEL
+    // SISWA MEMILIH MAPEL
+    // =========================================
+
+    let pilihanMapel = "Pilih Mata Pelajaran:\n\n";
+
+    daftarUjian.forEach((ujian, index) => {
+
+        pilihanMapel +=
+            (index + 1) +
+            ". " +
+            ujian.mapel +
+            " (" +
+            ujian.jumlah_soal +
+            " soal - " +
+            ujian.durasi_menit +
+            " menit)\n";
+    });
+
+    pilihanMapel +=
+        "\nMasukkan nomor mata pelajaran:";
+
+    const pilihan = prompt(pilihanMapel);
+
+    // Jika siswa menekan Cancel
+    if (pilihan === null) {
+        return;
+    }
+
+    const nomor = Number(pilihan);
+
+    // Cek pilihan
+    if (
+        !Number.isInteger(nomor) ||
+        nomor < 1 ||
+        nomor > daftarUjian.length
+    ) {
+        alert("Pilihan mata pelajaran tidak valid.");
+        return;
+    }
+
+    // Ambil ujian sesuai pilihan siswa
+    const ujianDipilih = daftarUjian[nomor - 1];
+
+    // Mulai ujian
+    await mulaiUjianDenganMapel(ujianDipilih);
+}
+
+
+// =========================================
+// MULAI UJIAN BERDASARKAN MAPEL
+// =========================================
+
+async function mulaiUjianDenganMapel(ujian) {
 
     try {
 
-        // Ambil soal dari Supabase
+        // =====================================
+        // AMBIL SOAL BERDASARKAN ujian_id
+        // =====================================
+
         const { data: soal, error } =
             await supabaseClient.rpc(
                 "ambil_soal_ujian",
                 {
-                    p_ujian_id: ujianId
+                    p_ujian_id: ujian.id
                 }
             );
 
         if (error) {
             console.error(error);
-            alert("Gagal mengambil soal: " + error.message);
+
+            alert(
+                "Gagal mengambil soal: " +
+                error.message
+            );
+
             return;
         }
+
+        // =====================================
+        // CEK SOAL
+        // =====================================
 
         if (!soal || soal.length === 0) {
-            alert("Soal ujian belum tersedia.");
+
+            alert(
+                "Soal untuk mata pelajaran " +
+                ujian.mapel +
+                " belum tersedia."
+            );
+
             return;
         }
 
-        // Simpan soal sementara
+        // =====================================
+        // SIMPAN DATA UJIAN
+        // =====================================
+
+        window.ujianAktif = ujian;
+
         window.soalUjian = soal;
+
         window.nomorSoal = 0;
+
         window.jawabanSiswa = {};
+
+        // =====================================
+        // TAMPILKAN SOAL
+        // =====================================
 
         tampilkanSoal();
 
     } catch (error) {
 
         console.error(error);
-        alert("Terjadi kesalahan saat membuka ujian.");
 
+        alert(
+            "Terjadi kesalahan saat membuka ujian."
+        );
     }
-}
-
+}  
     // =====================================
 // TAMPILKAN SOAL UJIAN
 // =====================================
