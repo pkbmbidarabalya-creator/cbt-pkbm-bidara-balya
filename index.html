@@ -821,7 +821,16 @@ alert("DEBUG: ID UJIAN = " + ujian.id + " | MAPEL = " + ujian.mapel);
 // =====================================
 
 function tampilkanSoal() {
+    // UPDATE HEADER SESUAI UJIAN YANG DIPILIH
+    if (window.ujianAktif) {
+        document.getElementById("judulMapel").textContent =
+            window.ujianAktif.mapel;
 
+        document.getElementById("infoUjian").textContent =
+            "Paket " + window.ujianAktif.paket +
+            " • " + window.ujianAktif.kelas +
+            " • Semester " + window.ujianAktif.semester;
+    }
     const soal = window.soalUjian[window.nomorSoal];
 
     if (!soal) {
@@ -956,14 +965,14 @@ function tampilkanSoal() {
             color:#172033;
             margin-bottom:4px;
         ">
-            MATEMATIKA
+            <span id="judulMapel">MATEMATIKA</span>
         </div>
 
         <div style="
             font-size:14px;
             color:#64748b;
         ">
-            Paket B • Kelas VIII • Semester 1
+            <span id="infoUjian">Paket B • Kelas VIII • Semester 1</span>
         </div>
     </div>
 
