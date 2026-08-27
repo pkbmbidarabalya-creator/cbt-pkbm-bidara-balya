@@ -689,8 +689,8 @@ function tampilkanSoal() {
         // Ambil teks pilihan setelah "A. "
         const teksPilihan = pilihan.replace(/^[A-D]\.\s*/, "");
 
-        const sudahDipilih =
-            window.jawabanSiswa[soal.id] === huruf;
+        const jawabanTersimpan = window.jawabanSiswa[soal.id];
+        const sudahDipilih = jawabanTersimpan === huruf;
 
         pilihanHTML += `
             <button
@@ -701,11 +701,11 @@ function tampilkanSoal() {
                     padding:16px;
                     margin:8px 0;
                     border-radius:12px;
-                    border:2px solid ${sudahDipilih ? '#2563eb' : '#e5e7eb'};
-                    background:${sudahDipilih ? '#2563eb' : 'white'} !important; 
+                    border:2px solid ${sudahDipilih ? '#2563eb' : '#e5e7eb'} !important;
+                    background:${sudahDipilih ? '#2563eb' : '#ffffff'} !important;
+                    color:${sudahDipilih ? '#ffffff' : '#333333'} !important;
                     cursor:pointer;
                     font-size:16px;
-                    color:${sudahDipilih ? 'white' : '#333'} !important;
                     font-weight:${sudahDipilih ? 'bold' : 'normal'};
                     box-shadow:${sudahDipilih ? '0 4px 12px rgba(37,99,235,0.25)' : 'none'};
                 "
