@@ -448,7 +448,7 @@ button[onclick*="pilihJawaban"]:active {
 
       </div>
 
-      <button class="logout" onclick="logout()">
+      <button class="logout" onclick="logoutUser()">
         Keluar
       </button>
 
@@ -462,7 +462,11 @@ button[onclick*="pilihJawaban"]:active {
 
 
   <script>
-
+  function logoutUser() {
+    localStorage.clear();
+    sessionStorage.clear();
+    window.location.reload();
+}
     // ================================
     // SUPABASE
     // ================================
