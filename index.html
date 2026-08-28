@@ -827,13 +827,15 @@ alert("DEBUG: ID UJIAN = " + ujian.id + " | MAPEL = " + ujian.mapel);
 function tampilkanSoal() {
     // UPDATE HEADER SESUAI UJIAN YANG DIPILIH
     if (window.ujianAktif) {
-        document.getElementById("judulMapel").textContent =
-            window.ujianAktif.mapel;
+        const elJudul = document.getElementById("judulMapel");
+        if (elJudul) elJudul.textContent = window.ujianAktif.mapel;
 
-        document.getElementById("infoUjian").textContent =
-            "Paket " + window.ujianAktif.paket +
-            " • " + window.ujianAktif.kelas +
-            " • Semester " + window.ujianAktif.semester;
+        const elInfo = document.getElementById("infoUjian");
+        if (elInfo) {
+            elInfo.textContent = "Paket " + window.ujianAktif.paket +
+                " • " + window.ujianAktif.kelas +
+                " • Semester " + window.ujianAktif.semester;
+        }
     }
     const soal = window.soalUjian[window.nomorSoal];
 
