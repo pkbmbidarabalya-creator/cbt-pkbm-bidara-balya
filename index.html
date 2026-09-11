@@ -803,7 +803,12 @@ async function mulaiUjianDenganMapel(ujian) {
 
         window.nomorSoal = 0;
 
-        window.jawabanSiswa = {};
+        const jawabanTersimpan = localStorage.getItem("jawabanSementara_" + ujian.id);
+
+        window.jawabanSiswa = jawabanTersimpan
+            ? JSON.parse(jawabanTersimpan)
+            : {};
+
         window.waktuTersisa = (ujian.durasi_menit || 45) * 60;
 
         // =====================================
@@ -1174,6 +1179,13 @@ function pilihJawaban(huruf) {
 
     window.jawabanSiswa[soal.id] = huruf;
 
+    if (window.ujianAktif) {
+        localStorage.setItem(
+            "jawabanSementara_" + window.ujianAktif.id,
+            JSON.stringify(window.jawabanSiswa)
+        );
+    }
+
     tampilkanSoal();
 }
 
@@ -1241,7 +1253,7 @@ function soalBerikutnya() {
 // TIMER
 // =====================================
 
-function selesaiUjian() {
+async function selesaiUjian() {
 
     const yakin = confirm(
         "Apakah Anda yakin ingin menyelesaikan ujian?"
@@ -1271,11 +1283,9 @@ function selesaiUjian() {
 
         const jawaban = jawabanSiswa[soal.id];
 
-        // Jika sudah dijawab
         if (jawaban) {
             dijawab++;
 
-            // Ambil jawaban benar
             const jawabanBenar = String(
                 soal.jawaban_benar || ""
             ).trim().toUpperCase();
@@ -1284,23 +1294,51 @@ function selesaiUjian() {
                 jawaban
             ).trim().toUpperCase();
 
-            // Cocokkan jawaban
             if (jawabanUser === jawabanBenar) {
                 benar++;
             }
         }
     });
 
-    // Hitung salah dan kosong
     const salah = dijawab - benar;
     const kosong = total - dijawab;
 
-    // Hitung nilai
     const nilai = total > 0
         ? Math.round((benar / total) * 100)
         : 0;
 
-    // Tampilkan hasil
+    // =========================================
+    // SIMPAN HASIL UJIAN KE DATABASE
+    // =========================================
+
+    const siswa = JSON.parse(sessionStorage.getItem("siswa") || "null");
+    const ujian = window.ujianAktif;
+
+    if (siswa && ujian) {
+
+        const { error: errorSimpan } = await supabaseClient
+            .from("hasil_ujian")
+            .insert({
+                siswa_id: siswa.id,
+                ujian_id: ujian.id,
+                jawaban_siswa: jawabanSiswa,
+                jumlah_benar: benar,
+                jumlah_salah: salah,
+                nilai: nilai
+            });
+
+        if (errorSimpan) {
+            console.error(errorSimpan);
+            alert(
+                "Gagal menyimpan hasil ujian ke server: " +
+                errorSimpan.message +
+                "\n\nCatat nilai kamu secara manual dan hubungi admin."
+            );
+        } else {
+            localStorage.removeItem("jawabanSementara_" + ujian.id);
+        }
+    }
+
     alert(
         "UJIAN SELESAI\n\n" +
         "Total soal : " + total + "\n" +
@@ -1310,6 +1348,8 @@ function selesaiUjian() {
         "Kosong     : " + kosong + "\n\n" +
         "NILAI : " + nilai
     );
+
+    window.location.reload();
 }
     let timerInterval = null;
 function mulaiTimer() {
