@@ -855,12 +855,18 @@ function tampilkanSoal() {
 
     let pilihanHTML = "";
 
-    soal.pilihan.forEach(function(pilihan, index) {
+    const entriesPilihan = Array.isArray(soal.pilihan)
+    ? soal.pilihan.map(function(teks, i) {
+        return [String.fromCharCode(65 + i), teks];
+      })
+    : Object.entries(soal.pilihan);
 
-        const huruf = String.fromCharCode(65 + index);
+entriesPilihan.forEach(function(entry) {
 
-        // Ambil teks pilihan setelah "A. "
-        const teksPilihan = pilihan.replace(/^[A-D]\.\s*/, "");
+    const huruf = entry[0];
+
+    // Ambil teks pilihan setelah "A. " (jika ada)
+    const teksPilihan = String(entry[1]).replace(/^[A-D]\.\s*/, "");
 
         const jawabanTersimpan = window.jawabanSiswa[soal.id];
         const sudahDipilih = jawabanTersimpan === huruf;
