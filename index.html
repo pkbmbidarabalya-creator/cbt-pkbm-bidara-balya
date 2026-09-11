@@ -9,7 +9,31 @@
   <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
+
+    :root {
+      --navy: #122868;
+      --blue-700: #1d4ed8;
+      --blue-600: #2563eb;
+      --blue-500: #3b82f6;
+      --blue-50: #eff6ff;
+      --green: #16a34a;
+      --amber: #f59e0b;
+      --maroon: #9f1d1d;
+      --ink: #172033;
+      --slate: #64748b;
+      --line: #e2e8f0;
+      --bg: #eef2fb;
+      --white: #ffffff;
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -17,449 +41,686 @@
     }
 
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Inter', Arial, sans-serif;
       min-height: 100vh;
-      background: linear-gradient(135deg, #eef4ff, #f8fbff);
+      background:
+        radial-gradient(circle at 15% -10%, #dbe7ff 0%, transparent 45%),
+        var(--bg);
+      color: var(--ink);
       display: flex;
       justify-content: center;
-      align-items: center;
-      color: #1e293b;
+      padding: 32px 16px;
     }
 
-    .container {
+    h1, h2, .brand-title, .student-name, .exam-mapel {
+      font-family: 'Poppins', 'Inter', sans-serif;
+    }
+
+    /* ============ LOGIN & DASHBOARD ============ */
+
+    .page-shell {
       width: 100%;
-      max-width: 430px;
-      padding: 20px;
+      max-width: 440px;
     }
 
-    .card {
-      background: white;
-      border-radius: 24px;
-      padding: 32px 28px;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+    .auth-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 20px 45px rgba(18,34,79,0.14);
+      margin-bottom: 16px;
     }
 
-    .logo {
-      width: 70px;
-      height: 70px;
-      margin: 0 auto 18px;
-      border-radius: 20px;
-      background: #2563eb;
+    .auth-card.dashboard {
+      display: none;
+    }
+
+    .brand-banner {
+      background: linear-gradient(135deg, var(--navy), var(--blue-600));
+      padding: 30px 28px 38px;
+      text-align: center;
       color: white;
+    }
+
+    .brand-icon {
+      width: 54px;
+      height: 54px;
+      margin: 0 auto 14px;
+      background: rgba(255,255,255,0.18);
+      border-radius: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 22px;
-      font-weight: bold;
     }
 
-    h1 {
-      text-align: center;
-      font-size: 25px;
-      margin-bottom: 8px;
+    .brand-title {
+      font-weight: 800;
+      font-size: 21px;
+      letter-spacing: .3px;
+      margin-bottom: 10px;
     }
 
-    .subtitle {
+    .brand-chip {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      background: rgba(255,255,255,0.18);
+      padding: 5px 14px;
+      border-radius: 20px;
+    }
+
+    .auth-body {
+      padding: 28px 26px 30px;
+    }
+
+    .auth-body h1 {
+      font-size: 19px;
+      font-weight: 700;
       text-align: center;
-      color: #64748b;
-      font-size: 14px;
-      margin-bottom: 30px;
-      line-height: 1.5;
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+
+    .auth-body h1 .accent {
+      color: var(--blue-600);
+      display: block;
+    }
+
+    .auth-sub {
+      text-align: center;
+      color: var(--slate);
+      font-size: 13.5px;
+      margin-bottom: 26px;
     }
 
     label {
       display: block;
-      font-size: 14px;
-      font-weight: bold;
+      font-size: 13px;
+      font-weight: 600;
       margin-bottom: 8px;
+      color: var(--ink);
     }
 
     input {
       width: 100%;
-      padding: 15px;
-      border: 1px solid #dbe3ef;
-      border-radius: 12px;
+      padding: 14px 16px;
+      border: 1.5px solid var(--line);
+      border-radius: var(--radius-sm);
       font-size: 16px;
       outline: none;
       margin-bottom: 18px;
+      font-family: inherit;
+      color: var(--ink);
     }
 
     input:focus {
-      border-color: #2563eb;
-      box-shadow: 0 0 0 3px rgba(37,99,235,0.10);
+      border-color: var(--blue-600);
+      box-shadow: 0 0 0 4px rgba(37,99,235,.12);
     }
 
-    button {
+    .btn-primary {
       width: 100%;
       padding: 15px;
       border: none;
-      border-radius: 12px;
-      background: #2563eb;
+      border-radius: var(--radius-sm);
+      background: linear-gradient(135deg, var(--blue-600), var(--blue-700));
       color: white;
-      font-size: 16px;
-      font-weight: bold;
+      font-size: 15px;
+      font-weight: 700;
       cursor: pointer;
+      letter-spacing: .2px;
+      box-shadow: 0 10px 20px rgba(37,99,235,.25);
+      transition: transform .15s ease, box-shadow .15s ease;
+      font-family: inherit;
     }
 
-    button:hover {
-      background: #1d4ed8;
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 26px rgba(37,99,235,.3);
     }
 
-    button:disabled {
-      opacity: 0.6;
+    .btn-primary:disabled {
+      opacity: .6;
       cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .logout {
+      width: 100%;
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: var(--radius-sm);
+      background: var(--bg);
+      color: var(--ink);
+      font-weight: 600;
+      cursor: pointer;
+      border: 1.5px solid var(--line);
+      font-family: inherit;
+      font-size: 14.5px;
+    }
+
+    .logout:hover {
+      background: #e5eaf5;
     }
 
     .info {
-      margin-top: 22px;
-      padding: 14px;
+      margin-top: 20px;
+      padding: 12px 14px;
       border-radius: 12px;
-      background: #eff6ff;
-      color: #475569;
-      font-size: 13px;
+      background: var(--blue-50);
+      color: var(--slate);
+      font-size: 12.5px;
       line-height: 1.5;
       text-align: center;
     }
 
     .error {
       display: none;
-      margin-bottom: 15px;
+      margin-bottom: 14px;
       padding: 12px;
       border-radius: 10px;
       background: #fef2f2;
       color: #dc2626;
-      font-size: 14px;
+      font-size: 13.5px;
       text-align: center;
-    }
-
-    .dashboard {
-      display: none;
+      font-weight: 600;
     }
 
     .student-name {
       text-align: center;
-      font-size: 23px;
-      font-weight: bold;
+      font-size: 20px;
+      font-weight: 700;
       margin-bottom: 8px;
     }
 
     .student-info {
       text-align: center;
-      color: #64748b;
-      line-height: 1.7;
-      margin-bottom: 25px;
+      color: var(--slate);
+      font-size: 13.5px;
+      margin-bottom: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
     }
 
     .exam-card {
       padding: 20px;
-      background: #eff6ff;
+      background: var(--blue-50);
+      border: 1px solid #dbeafe;
       border-radius: 18px;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
     .exam-card h2 {
-      font-size: 20px;
-      margin-bottom: 8px;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 6px;
     }
 
     .exam-card p {
-      color: #64748b;
-      margin-bottom: 15px;
-    }
-
-    .logout {
-      background: #e2e8f0;
-      color: #334155;
+      color: var(--slate);
+      font-size: 13.5px;
+      margin-bottom: 14px;
+      line-height: 1.6;
     }
 
     .footer {
       text-align: center;
-      margin-top: 20px;
-      font-size: 12px;
+      margin-top: 6px;
+      font-size: 11.5px;
       color: #94a3b8;
-    }
-    /* =========================================
-   CBT MODERN - TAHAP 1
-   KARTU SOAL & PILIHAN JAWABAN
-   ========================================= */
-
-/* Kartu utama soal */
-.question-card,
-.soal-card,
-.card {
-    border-radius: 18px !important;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08) !important;
-}
-
-/* Area pertanyaan */
-.question,
-.soal {
-    font-size: 18px !important;
-    line-height: 1.7 !important;
-    color: #1f2937 !important;
-}
-
-/* Pilihan jawaban */
-button {
-    transition: all 0.2s ease !important;
-}
-
-/* Efek ketika mouse diarahkan ke pilihan */
-button:hover {
-    transform: translateY(-1px);
-}
-
-/* Pilihan jawaban yang terlihat seperti kartu */
-button[onclick*="pilihJawaban"] {
-    width:100% !important;
-    border-radius:16px !important;
-    border:2px solid #e2e8f0 !important;
-    background:#ffffff !important;
-    padding:17px 20px !important;
-    margin-bottom:12px !important;
-    text-align:left !important;
-    font-size:16px !important;
-    line-height:1.5 !important;
-    font-weight:600 !important;
-    color:#172033 !important;
-    cursor:pointer !important;
-    transition:all 0.2s ease !important;
-    box-shadow:0 2px 6px rgba(0,0,0,0.03) !important;
-}
-/* Efek hover pilihan */
-button[onclick*="pilihJawaban"]:hover {
-    border-color:#2563eb !important;
-    background:#f8fbff !important;
-    transform:translateY(-2px) !important;
-    box-shadow:0 6px 16px rgba(37,99,235,0.12) !important;
-}
-
-/* Tampilan di HP */
-@media (max-width: 600px) {
-
-    .question,
-    .soal {
-        font-size: 16px !important;
-        line-height: 1.6 !important;
+      line-height: 1.6;
     }
 
-    button[onclick*="pilihJawaban"] {
-        padding: 14px !important;
-        font-size: 15px !important;
+    /* ============ HALAMAN SOAL UJIAN ============ */
+
+    .exam-shell {
+      max-width: 800px;
+      margin: 0 auto;
+      width: 100%;
     }
-}
-    /* =====================================================
-   CBT MODERN UI
-   ===================================================== */
 
-body {
-    font-family: Arial, sans-serif !important;
-    background: linear-gradient(135deg, #eef4ff, #f8fbff) !important;
-    color: #172033;
-}
+    .exam-banner {
+      background: linear-gradient(135deg, var(--navy), var(--blue-600));
+      border-radius: 22px;
+      padding: 20px 22px 24px;
+      color: white;
+      margin-bottom: 16px;
+      box-shadow: 0 15px 35px rgba(18,34,79,.18);
+    }
 
-/* Kartu soal */
-.question-card,
-.soal-card,
-.card {
-    border-radius: 18px !important;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.08) !important;
-}
+    .exam-banner-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+      gap: 12px;
+    }
 
-/* Teks soal */
-.question,
-.soal {
-    font-size: 18px !important;
-    line-height: 1.7 !important;
-    color: #172033 !important;
-}
+    .exam-back {
+      background: rgba(255,255,255,.16);
+      border: none;
+      color: white;
+      font-weight: 600;
+      font-size: 13px;
+      padding: 9px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: inherit;
+    }
 
-/* Pilihan jawaban */
-button[onclick*="pilihJawaban"] {
-    border-radius: 14px !important;
-    border: 2px solid #e2e8f0 !important;
-    background: #ffffff !important;
-    padding: 16px 18px !important;
-    margin-bottom: 10px !important;
-    text-align: left !important;
-    font-size: 16px !important;
-    line-height: 1.5 !important;
-    transition: all 0.2s ease !important;
-}
+    .exam-back:hover {
+      background: rgba(255,255,255,.26);
+    }
 
-/* Hover pilihan */
-button[onclick*="pilihJawaban"]:hover {
-    border-color: #2563eb !important;
-    background: #f0f6ff !important;
-    box-shadow: 0 5px 15px rgba(37,99,235,0.10) !important;
-}
+    .exam-timer {
+      background: rgba(255,255,255,.16);
+      border-radius: 16px;
+      padding: 8px 16px;
+      text-align: center;
+      min-width: 92px;
+    }
 
-/* Navigasi soal */
-#navigasiSoal {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    justify-content: center !important;
-    align-items: center !important;
-    gap: 6px !important;
-}
+    .exam-timer-label {
+      font-size: 10px;
+      letter-spacing: .6px;
+      opacity: .85;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
 
-/* Bulatan nomor */
-#navigasiSoal button {
-    width: 40px !important;
-    height: 40px !important;
-    min-width: 40px !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    border-radius: 50% !important;
-    border: none !important;
+    .exam-timer-value {
+      font-size: 17px;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+    }
 
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+    .exam-eyebrow {
+      font-size: 11px;
+      letter-spacing: 1.2px;
+      font-weight: 700;
+      opacity: .85;
+      margin-bottom: 6px;
+    }
 
-    text-align: center !important;
-    line-height: 1 !important;
-    font-weight: bold !important;
-    font-size: 14px !important;
-}
+    .exam-mapel {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
 
-/* Tombol kembali & lanjut */
-button[onclick*="soalSebelumnya"],
-button[onclick*="soalBerikutnya"] {
-    border-radius: 12px !important;
-    font-weight: bold !important;
-}
+    .exam-meta {
+      font-size: 12.5px;
+      opacity: .9;
+    }
 
-/* Tombol selesai */
-button[onclick*="selesaiUjian"] {
-    border-radius: 12px !important;
-    font-weight: bold !important;
-}
- /* =========================================
-   TAMPILAN PILIHAN JAWABAN CBT
-   ========================================= */
+    .exam-card-panel {
+      background: white;
+      border-radius: 20px;
+      padding: 22px 20px;
+      box-shadow: 0 8px 24px rgba(15,23,42,.06);
+      margin-bottom: 14px;
+    }
 
-button[onclick*="pilihJawaban"] {
-    width: 100% !important;
-    min-height: 58px !important;
-    border-radius: 16px !important;
-    border: 2px solid #e2e8f0 !important;
-    background: #ffffff !important;
-    padding: 16px 20px !important;
-    margin-bottom: 12px !important;
-    text-align: left !important;
-    font-size: 16px !important;
-    font-weight: 600 !important;
-    color: #172033 !important;
-    cursor: pointer !important;
-    transition: all 0.2s ease !important;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.04) !important;
-}
+    .badge-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
 
-button[onclick*="pilihJawaban"]:hover {
-    border-color: #2563eb !important;
-    background: #f8fbff !important;
-    transform: translateY(-2px) !important;
-    box-shadow: 0 7px 18px rgba(37,99,235,0.12) !important;
-}
+    .badge-soal {
+      background: var(--blue-50);
+      color: var(--blue-700);
+      font-weight: 700;
+      font-size: 13px;
+      padding: 7px 14px;
+      border-radius: 20px;
+    }
 
-button[onclick*="pilihJawaban"]:active {
-    transform: scale(0.99) !important;
-}
+    .badge-type {
+      border: 1.5px solid var(--line);
+      color: var(--slate);
+      font-weight: 600;
+      font-size: 12.5px;
+      padding: 6px 13px;
+      border-radius: 20px;
+    }
+
+    .soal-text {
+      font-size: 16.5px;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      white-space: pre-line;
+      color: var(--ink);
+    }
+
+    .soal-image {
+      max-width: 100%;
+      border-radius: 14px;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .option-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-align: left;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      border-radius: 14px;
+      border: 2px solid var(--line);
+      background: white;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--ink);
+      transition: all .15s ease;
+      font-family: inherit;
+    }
+
+    .option-btn:hover {
+      border-color: var(--blue-500);
+      background: var(--blue-50);
+    }
+
+    .option-letter {
+      flex-shrink: 0;
+      width: 30px;
+      height: 30px;
+      border-radius: 9px;
+      background: #eef1f6;
+      color: var(--slate);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 13.5px;
+    }
+
+    .option-btn.selected {
+      border-color: var(--blue-600);
+      background: var(--blue-600);
+      color: white;
+      font-weight: 700;
+      box-shadow: 0 8px 18px rgba(37,99,235,.25);
+    }
+
+    .option-btn.selected .option-letter {
+      background: rgba(255,255,255,.25);
+      color: white;
+    }
+
+    .nav-panel {
+      background: white;
+      border-radius: 20px;
+      padding: 18px;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(15,23,42,.06);
+      margin-bottom: 14px;
+    }
+
+    .nav-title {
+      font-weight: 700;
+      font-size: 13.5px;
+      margin-bottom: 12px;
+      color: var(--ink);
+    }
+
+    .nav-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .nav-dot {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      background: var(--maroon);
+      transition: transform .12s ease;
+      font-family: inherit;
+    }
+
+    .nav-dot:hover {
+      transform: translateY(-2px);
+    }
+
+    .nav-dot.answered {
+      background: var(--green);
+    }
+
+    .nav-dot.ragu {
+      background: var(--amber);
+      color: #3f2d02;
+    }
+
+    .nav-dot.current {
+      background: var(--blue-600);
+      box-shadow: 0 0 0 3px rgba(37,99,235,.25);
+    }
+
+    .action-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .btn-outline {
+      flex: 1;
+      padding: 14px;
+      border-radius: 14px;
+      border: 1.5px solid var(--line);
+      background: white;
+      font-weight: 700;
+      color: var(--ink);
+      cursor: pointer;
+      font-size: 14px;
+      font-family: inherit;
+    }
+
+    .btn-outline:hover {
+      background: #f4f6fb;
+    }
+
+    .btn-ragu {
+      flex: 1;
+      padding: 14px;
+      border-radius: 14px;
+      border: 1.5px solid #fcd34d;
+      background: #fffbeb;
+      color: #92400e;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 14px;
+      font-family: inherit;
+    }
+
+    .btn-ragu.active {
+      background: var(--amber);
+      color: white;
+      border-color: var(--amber);
+    }
+
+    .btn-next {
+      flex: 1;
+      padding: 14px;
+      border-radius: 14px;
+      border: none;
+      background: linear-gradient(135deg, var(--blue-600), var(--blue-700));
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 14px;
+      box-shadow: 0 8px 18px rgba(37,99,235,.2);
+      font-family: inherit;
+    }
+
+    .btn-finish {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #16a34a, #15803d);
+      color: white;
+      font-weight: 800;
+      font-size: 15px;
+      cursor: pointer;
+      box-shadow: 0 10px 20px rgba(22,163,74,.25);
+      font-family: inherit;
+    }
+
+    @media (max-width: 480px) {
+
+      .exam-mapel {
+        font-size: 18px;
+      }
+
+      .soal-text {
+        font-size: 15.5px;
+      }
+
+      .option-btn {
+        padding: 13px 14px;
+        font-size: 14.5px;
+      }
+
+      .auth-body {
+        padding: 24px 20px 26px;
+      }
+    }
+
   </style>
 </head>
 
 <body>
 
-  <div class="container">
+  <div class="page-shell">
 
     <!-- LOGIN -->
-    <div class="card" id="loginPage">
+    <div class="auth-card" id="loginPage">
 
-      <div class="logo">
-        CBT
+      <div class="brand-banner">
+        <div class="brand-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+            <path d="M12 3L1 8l11 5 9-4.09V17h2V8L12 3z" fill="white"/>
+            <path d="M5 10.18v3.64c0 1.3 3.13 3.18 7 3.18s7-1.88 7-3.18v-3.64L12 13 5 10.18z" fill="white" opacity="0.85"/>
+          </svg>
+        </div>
+        <div class="brand-title">CBT ONLINE</div>
+        <div class="brand-chip">PENDIDIKAN KESETARAAN</div>
       </div>
 
-      <h1>CBT Online</h1>
+      <div class="auth-body">
 
-      <p class="subtitle">
-        PKBM Bidara Balya<br>
-        Sistem Ujian Online
-      </p>
+        <h1>Selamat Datang di <span class="accent">PKBM Bidara Balya</span></h1>
 
-      <div class="error" id="errorMessage"></div>
+        <p class="auth-sub">
+          Silakan masukkan NISN untuk mengikuti ujian.
+        </p>
 
-      <form id="loginForm">
+        <div class="error" id="errorMessage"></div>
 
-        <label for="nisn">NISN</label>
+        <form id="loginForm">
 
-        <input
-          type="text"
-          id="nisn"
-          placeholder="Masukkan NISN"
-          maxlength="20"
-          autocomplete="off"
-          required
-        >
+          <label for="nisn">NISN (Nomor Induk Siswa Nasional)</label>
 
-        <button type="submit" id="loginButton">
-          Masuk
-        </button>
+          <input
+            type="text"
+            id="nisn"
+            placeholder="Masukkan NISN Anda"
+            maxlength="20"
+            autocomplete="off"
+            required
+          >
 
-      </form>
+          <button type="submit" id="loginButton" class="btn-primary">
+            Masuk →
+          </button>
 
-      <div class="info">
-        Gunakan NISN yang sudah terdaftar
-        untuk mengikuti ujian.
+        </form>
+
+        <div class="info">
+          ℹ️ Login menggunakan NISN siswa.
+        </div>
+
       </div>
 
     </div>
 
 
     <!-- DASHBOARD -->
-    <div class="card dashboard" id="dashboardPage">
+    <div class="auth-card dashboard" id="dashboardPage">
 
-      <div class="logo">
-        CBT
+      <div class="brand-banner">
+        <div class="brand-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+            <path d="M12 3L1 8l11 5 9-4.09V17h2V8L12 3z" fill="white"/>
+            <path d="M5 10.18v3.64c0 1.3 3.13 3.18 7 3.18s7-1.88 7-3.18v-3.64L12 13 5 10.18z" fill="white" opacity="0.85"/>
+          </svg>
+        </div>
+        <div class="brand-title">CBT ONLINE</div>
+        <div class="brand-chip">PENDIDIKAN KESETARAAN</div>
       </div>
 
-      <div class="student-name" id="studentName">
-        Nama Siswa
-      </div>
+      <div class="auth-body">
 
-      <div class="student-info">
-        <div id="studentNisn"></div>
-        <div id="studentPaket"></div>
-        <div id="studentKelas"></div>
-      </div>
+        <div class="student-name" id="studentName">
+          Nama Siswa
+        </div>
 
-      <div class="exam-card">
+        <div class="student-info">
+          <span id="studentNisn"></span>
+          <span id="studentPaket"></span>
+          <span id="studentKelas"></span>
+        </div>
 
-        <h2>Matematika</h2>
+        <div class="exam-card">
 
-        <p>
-          Semester 1 • Hari 1<br>
-          25 Soal • 45 Menit
-        </p>
+          <h2>Matematika</h2>
 
-        <button onclick="mulaiUjian()">
-          Mulai Ujian
+          <p>
+            Semester 1 • Hari 1<br>
+            25 Soal • 45 Menit
+          </p>
+
+          <button class="btn-primary" onclick="mulaiUjian()">
+            Mulai Ujian
+          </button>
+
+        </div>
+
+        <button class="logout" onclick="logoutUser()">
+          Keluar
         </button>
 
       </div>
 
-      <button class="logout" onclick="logoutUser()">
-        Keluar
-      </button>
-
     </div>
 
     <div class="footer">
+      Sistem Ujian Berbasis Komputer • Pendidikan Kesetaraan<br>
       © 2026 PKBM Bidara Balya
     </div>
 
   </div>
-
 
   <script>
   function logoutUser() {
@@ -867,6 +1128,12 @@ async function mulaiUjianDenganMapel(ujian) {
             ? JSON.parse(jawabanTersimpan)
             : {};
 
+        const raguTersimpan = localStorage.getItem("raguSementara_" + ujian.id);
+
+        window.raguSoal = new Set(
+            raguTersimpan ? JSON.parse(raguTersimpan) : []
+        );
+
         window.waktuTersisa = (ujian.durasi_menit || 45) * 60;
 
         // =====================================
@@ -889,7 +1156,7 @@ async function mulaiUjianDenganMapel(ujian) {
 // =====================================
 
 function tampilkanSoal() {
-   
+
     const soal = window.soalUjian[window.nomorSoal];
 
     if (!soal) {
@@ -899,218 +1166,149 @@ function tampilkanSoal() {
 
     const nomor = window.nomorSoal + 1;
     const total = window.soalUjian.length;
+    const isLast = nomor === total;
+
+    if (!window.raguSoal) {
+        window.raguSoal = new Set();
+    }
+
+    // =====================================
+    // BANGUN PILIHAN JAWABAN
+    // =====================================
 
     let pilihanHTML = "";
 
     const entriesPilihan = Array.isArray(soal.pilihan)
-    ? soal.pilihan.map(function(teks, i) {
-        return [String.fromCharCode(65 + i), teks];
-      })
-    : Object.entries(soal.pilihan);
+        ? soal.pilihan.map(function(teks, i) {
+            return [String.fromCharCode(65 + i), teks];
+          })
+        : Object.entries(soal.pilihan);
 
-entriesPilihan.forEach(function(entry) {
+    entriesPilihan.forEach(function(entry) {
 
-    const huruf = entry[0];
+        const huruf = entry[0];
 
-    // Ambil teks pilihan setelah "A. " (jika ada)
-    const teksPilihan = String(entry[1]).replace(/^[A-D]\.\s*/, "");
+        // Ambil teks pilihan setelah "A. " (jika ada)
+        const teksPilihan = String(entry[1]).replace(/^[A-D]\.\s*/, "");
 
         const jawabanTersimpan = window.jawabanSiswa[soal.id];
         const sudahDipilih = jawabanTersimpan === huruf;
 
         pilihanHTML += `
             <button
+                class="option-btn${sudahDipilih ? ' selected' : ''}"
                 onclick="pilihJawaban('${huruf}')"
-                style="
-                    width:100%;
-                    text-align:left;
-                    padding:16px;
-                    margin:8px 0;
-                    border-radius:12px;
-                    border:2px solid ${sudahDipilih ? '#2563eb' : '#e5e7eb'} !important;
-                    background:${sudahDipilih ? '#2563eb' : '#ffffff'} !important;
-                    color:${sudahDipilih ? '#ffffff' : '#333333'} !important;
-                    cursor:pointer;
-                    font-size:16px;
-                    font-weight:${sudahDipilih ? 'bold' : 'normal'};
-                    box-shadow:${sudahDipilih ? '0 4px 12px rgba(37,99,235,0.25)' : 'none'};
-                "
             >
-                <strong>${huruf}.</strong>
-                ${teksPilihan}
+                <span class="option-letter">${huruf}</span>
+                <span>${teksPilihan}</span>
             </button>
         `;
     });
+
+    // =====================================
+    // BANGUN NAVIGASI NOMOR SOAL
+    // =====================================
 
     let navigasiHTML = "";
 
     for (let i = 0; i < total; i++) {
 
-        const sudahDijawab =
-            window.jawabanSiswa[window.soalUjian[i].id] !== undefined;
+        const soalId = window.soalUjian[i].id;
 
-        const aktif = i === window.nomorSoal && !sudahDijawab;
+        const sudahDijawab =
+            window.jawabanSiswa[soalId] !== undefined;
+
+        const raguDitandai = window.raguSoal.has(soalId);
+
+        const current = i === window.nomorSoal;
+
+        let kelasStatus = "";
+
+        if (current) {
+            kelasStatus = " current";
+        } else if (raguDitandai) {
+            kelasStatus = " ragu";
+        } else if (sudahDijawab) {
+            kelasStatus = " answered";
+        }
 
         navigasiHTML += `
             <button
+                class="nav-dot${kelasStatus}"
                 onclick="keSoal(${i})"
-                style="
-                    width:38px;
-                    height:38px;
-                    margin:4px;
-                    border-radius:50%;
-                    border:none;
-                    cursor:pointer;
-                    font-weight:bold;
-                    display:inline-flex;
-                    align-items:center;
-                    justify-content:center;
-                    padding:0;
-                    line-height:1;
-                    color:${aktif || sudahDijawab ? 'white' : '#333'};
-                    background:${
-                        aktif
-                        ? '#2563eb'
-                        : sudahDijawab
-                            ? '#16a34a'
-                            : '#e2e8f0'
-                    };
-                "
             >
                 ${i + 1}
             </button>
         `;
     }
 
+    // =====================================
+    // TOMBOL RAGU & LANJUT
+    // =====================================
+
+    const raguAktif = window.raguSoal.has(soal.id);
+
+    const tombolLanjutHTML = isLast
+        ? `<button class="btn-outline" disabled style="opacity:.5;cursor:not-allowed;">Soal Terakhir</button>`
+        : `<button class="btn-next" onclick="soalBerikutnya()">Lanjut →</button>`;
+
+    // =====================================
+    // RENDER HALAMAN
+    // =====================================
+
     document.body.innerHTML = `
 
-        <div style="
-            min-height:100vh;
-            background:#f3f6fb;
-            font-family:Arial,sans-serif;
-            padding:20px;
-        ">
+        <div style="min-height:100vh; padding:20px 0 40px;">
 
-            <div style="
-                max-width:800px;
-                margin:auto;
-            ">
+            <div class="exam-shell">
 
-                <!-- HEADER -->
+                <!-- BANNER -->
 
-                <div style="
-                    background:white;
-                    padding:18px;
-                    border-radius:16px;
-                    margin-bottom:16px;
-                    box-shadow:0 3px 12px rgba(0,0,0,.08);
-                ">
-<div style="
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:20px;
-">
+                <div class="exam-banner">
 
-    <!-- IDENTITAS UJIAN -->
-    <div>
-        <div style="
-            font-size:13px;
-            color:#2563eb;
-            font-weight:bold;
-            margin-bottom:5px;
-            letter-spacing:.5px;
-        ">
-            CBT ONLINE
-        </div>
+                    <div class="exam-banner-top">
 
-        <div style="
-            font-size:20px;
-            font-weight:800;
-            color:#172033;
-            margin-bottom:4px;
-        ">
-           <span id="judulMapel">${window.ujianAktif ? window.ujianAktif.mapel : ''}</span>
-        </div>
+                        <button class="exam-back" onclick="kembaliKeDashboard()">
+                            ← Kembali
+                        </button>
 
-        <div style="
-            font-size:14px;
-            color:#64748b;
-        ">
-            <span id="infoUjian">${window.ujianAktif ? ('Paket ' + window.ujianAktif.paket + ' • ' + window.ujianAktif.kelas + ' • Semester ' + window.ujianAktif.semester) : ''}</span>
-        </div>
-    </div>
+                        <div class="exam-timer" id="timerBox">
+                            <div class="exam-timer-label">SISA WAKTU</div>
+                            <div class="exam-timer-value">⏱ <span id="timer">45:00</span></div>
+                        </div>
 
-    <!-- TIMER -->
-    <div style="
-        background:linear-gradient(135deg,#eff6ff,#dbeafe);
-        border:1px solid #bfdbfe;
-        color:#2563eb;
-        padding:12px 18px;
-        border-radius:14px;
-        font-weight:800;
-        min-width:105px;
-        text-align:center;
-        box-shadow:0 4px 12px rgba(37,99,235,.10);
-    ">
-        <div style="
-            font-size:11px;
-            color:#64748b;
-            margin-bottom:3px;
-            font-weight:600;
-        ">
-            SISA WAKTU
-        </div>
+                    </div>
 
-        <div style="
-            font-size:18px;
-        ">
-            ⏱ <span id="timer">45:00</span>
-        </div>
-    </div>
+                    <div class="exam-eyebrow">CBT ONLINE</div>
 
-</div>
-                    
+                    <div class="exam-mapel" id="judulMapel">
+                        ${window.ujianAktif ? window.ujianAktif.mapel : ''}
+                    </div>
+
+                    <div class="exam-meta" id="infoUjian">
+                        ${window.ujianAktif
+                            ? ('Paket ' + window.ujianAktif.paket +
+                               ' • ' + window.ujianAktif.kelas +
+                               ' • Semester ' + window.ujianAktif.semester +
+                               ' • Hari ' + window.ujianAktif.hari)
+                            : ''}
+                    </div>
+
+                </div>
 
                 <!-- SOAL -->
 
-                <div style="
-                    background:white;
-                    padding:24px;
-                    border-radius:16px;
-                    box-shadow:0 3px 12px rgba(0,0,0,.08);
-                ">
+                <div class="exam-card-panel">
 
-                    <div style="
-                        display:inline-block;
-                        background:#2563eb;
-                        color:white;
-                        padding:7px 14px;
-                        border-radius:20px;
-                        font-weight:bold;
-                        margin-bottom:18px;
-                    ">
-                        SOAL ${nomor} DARI ${total}
+                    <div class="badge-row">
+                        <span class="badge-soal">Soal ${nomor} dari ${total}</span>
+                        <span class="badge-type">Pilihan Ganda</span>
                     </div>
 
-                    <div style="
-                        font-size:19px;
-                        line-height:1.6;
-                        margin-bottom:20px;
-                        white-space:pre-line;
-                    ">
-                        ${soal.soal}
-                    </div>
+                    <div class="soal-text">${soal.soal}</div>
 
                     ${soal.gambar ? `
-                        <img
-                            src="${soal.gambar}"
-                            style="
-                                max-width:100%;
-                                border-radius:12px;
-                                margin-bottom:15px;
-                            "
-                        >
+                        <img class="soal-image" src="${soal.gambar}">
                     ` : ""}
 
                     <div>
@@ -1119,100 +1317,41 @@ entriesPilihan.forEach(function(entry) {
 
                 </div>
 
+                <!-- NAVIGASI -->
 
-                <!-- NAVIGASI SOAL -->
+                <div class="nav-panel">
 
-                <div style="
-                    background:white;
-                    margin-top:16px;
-                    padding:18px;
-                    border-radius:16px;
-                    text-align:center;
-                    box-shadow:0 3px 12px rgba(0,0,0,.08);
-                ">
+                    <div class="nav-title">Navigasi Nomor Soal</div>
 
-                    <div style="
-                        font-weight:bold;
-                        margin-bottom:10px;
-                    ">
-                        Navigasi Soal
+                    <div class="nav-grid" id="navigasiSoal">
+                        ${navigasiHTML}
                     </div>
 
-                    <div id="navigasiSoal" style="
-                            display:flex;
-                            flex-wrap:wrap;
-                            justify-content:center;
-                            align-items:center;
-                            gap:4px;
-                     ">
-                         ${navigasiHTML}
-                 </div>
-
                 </div>
 
+                <!-- TOMBOL AKSI -->
 
-                <!-- TOMBOL -->
+                <div class="action-row">
 
-                <div style="
-                    display:flex;
-                    justify-content:space-between;
-                    gap:10px;
-                    margin-top:16px;
-                ">
-
-                    <button
-                        onclick="soalSebelumnya()"
-                        style="
-                            flex:1;
-                            padding:15px;
-                            border:none;
-                            border-radius:12px;
-                            background:#e5e7eb;
-                            font-weight:bold;
-                            cursor:pointer;
-                        "
-                    >
-                        ← Kembali
+                    <button class="btn-outline" onclick="soalSebelumnya()">
+                        ← Sebelumnya
                     </button>
 
                     <button
-                        onclick="soalBerikutnya()"
-                        style="
-                            flex:1;
-                            padding:15px;
-                            border:none;
-                            border-radius:12px;
-                            background:#2563eb;
-                            color:white;
-                            font-weight:bold;
-                            cursor:pointer;
-                        "
+                        class="btn-ragu${raguAktif ? ' active' : ''}"
+                        onclick="toggleRagu()"
                     >
-                        Lanjut →
+                        🚩 Ragu
                     </button>
 
+                    ${tombolLanjutHTML}
+
                 </div>
-<div style="
-    margin-top:15px;
-    text-align:center;
-">
-    <button
-        onclick="selesaiUjian()"
-        style="
-            width:100%;
-            padding:15px;
-            border:none;
-            border-radius:12px;
-            background:#16a34a;
-            color:white;
-            font-weight:bold;
-            font-size:16px;
-            cursor:pointer;
-        "
-    >
-        ✓ SELESAI UJIAN
-    </button>
-</div>
+
+                <button class="btn-finish" onclick="selesaiUjian()">
+                    ✓ Selesai Ujian
+                </button>
+
             </div>
 
         </div>
@@ -1220,6 +1359,8 @@ entriesPilihan.forEach(function(entry) {
 
     mulaiTimer();
 }
+
+
 
 
 // =====================================
@@ -1240,6 +1381,51 @@ function pilihJawaban(huruf) {
     }
 
     tampilkanSoal();
+}
+
+
+// =====================================
+// TANDAI / BATAL TANDAI RAGU-RAGU
+// =====================================
+
+function toggleRagu() {
+
+    const soal = window.soalUjian[window.nomorSoal];
+
+    if (!window.raguSoal) {
+        window.raguSoal = new Set();
+    }
+
+    if (window.raguSoal.has(soal.id)) {
+        window.raguSoal.delete(soal.id);
+    } else {
+        window.raguSoal.add(soal.id);
+    }
+
+    if (window.ujianAktif) {
+        localStorage.setItem(
+            "raguSementara_" + window.ujianAktif.id,
+            JSON.stringify(Array.from(window.raguSoal))
+        );
+    }
+
+    tampilkanSoal();
+}
+
+
+// =====================================
+// KEMBALI KE DASHBOARD
+// =====================================
+
+function kembaliKeDashboard() {
+
+    const yakin = confirm(
+        "Kembali ke dashboard? Jawaban yang sudah diisi tetap tersimpan."
+    );
+
+    if (yakin) {
+        window.location.reload();
+    }
 }
 
 
