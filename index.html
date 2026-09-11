@@ -569,33 +569,91 @@ button[onclick*="pilihJawaban"]:active {
     // DASHBOARD
     // ================================
 
-    function tampilkanDashboard(siswa) {
+    async function tampilkanDashboard(siswa) {
 
-      document
-        .getElementById("loginPage")
-        .style.display = "none";
+  document
+    .getElementById("loginPage")
+    .style.display = "none";
 
-      document
-        .getElementById("dashboardPage")
-        .style.display = "block";
+  document
+    .getElementById("dashboardPage")
+    .style.display = "block";
 
-      document
-        .getElementById("studentName")
-        .textContent = siswa.nama;
+  document
+    .getElementById("studentName")
+    .textContent = siswa.nama;
 
-      document
-        .getElementById("studentNisn")
-        .textContent = "NISN: " + siswa.nisn;
+  document
+    .getElementById("studentNisn")
+    .textContent = "NISN: " + siswa.nisn;
 
-      document
-        .getElementById("studentPaket")
-        .textContent = "Paket: " + siswa.paket;
+  document
+    .getElementById("studentPaket")
+    .textContent = "Paket: " + siswa.paket;
 
-      document
-        .getElementById("studentKelas")
-        .textContent = "Kelas: " + siswa.kelas;
+  document
+    .getElementById("studentKelas")
+    .textContent = "Kelas: " + siswa.kelas;
+
+  // =========================================
+  // CARI UJIAN AKTIF UNTUK PAKET & KELAS INI
+  // =========================================
+
+  const examCard = document.querySelector(".exam-card");
+
+  try {
+
+    const { data: ujianAktifList, error: errorCek } =
+      await supabaseClient
+        .from("ujian")
+        .select("*")
+        .eq("paket", siswa.paket)
+        .eq("kelas", siswa.kelas)
+        .eq("aktif", true)
+        .order("id", { ascending: true });
+
+    if (errorCek) {
+      console.error(errorCek);
+      return;
     }
 
+    if (!ujianAktifList || ujianAktifList.length === 0) {
+
+      if (examCard) {
+        examCard.innerHTML =
+          "<p>Belum ada ujian yang diaktifkan untuk Paket " +
+          siswa.paket + ", " + siswa.kelas +
+          ". Silakan hubungi admin.</p>";
+      }
+
+      return;
+    }
+
+    const ujianPertama = ujianAktifList[0];
+
+    window.semesterUjian = ujianPertama.semester;
+    window.hariUjian = ujianPertama.hari;
+
+    if (examCard) {
+
+      const daftarMapel = ujianAktifList
+        .map(function(u) { return u.mapel; })
+        .join(", ");
+
+      examCard.innerHTML = `
+        <h2>${daftarMapel}</h2>
+        <p>
+          Semester ${ujianPertama.semester} • Hari ${ujianPertama.hari}<br>
+          ${ujianAktifList.length} Mata Pelajaran
+        </p>
+        <button onclick="mulaiUjian()">Mulai Ujian</button>
+      `;
+    }
+
+  } catch (err) {
+    console.error(err);
+  }
+}
 
     // ================================
     // CEK LOGIN SEBELUMNYA
