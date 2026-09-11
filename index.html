@@ -804,6 +804,7 @@ async function mulaiUjianDenganMapel(ujian) {
         window.nomorSoal = 0;
 
         window.jawabanSiswa = {};
+        window.waktuTersisa = (ujian.durasi_menit || 45) * 60;
 
         // =====================================
         // TAMPILKAN SOAL
@@ -1311,18 +1312,20 @@ function selesaiUjian() {
     );
 }
     let timerInterval = null;
-let waktuTersisa = 45 * 60;
-
 function mulaiTimer() {
 
     if (timerInterval) {
         return;
     }
 
+    if (window.waktuTersisa === undefined) {
+        window.waktuTersisa = 45 * 60;
+    }
+
     timerInterval = setInterval(function() {
 
-        const menit = Math.floor(waktuTersisa / 60);
-        const detik = waktuTersisa % 60;
+        const menit = Math.floor(window.waktuTersisa / 60);
+        const detik = window.waktuTersisa % 60;
 
         const timer = document.getElementById("timer");
 
@@ -1333,9 +1336,9 @@ function mulaiTimer() {
                 String(detik).padStart(2, "0");
         }
 
-        waktuTersisa--;
+        window.waktuTersisa--;
 
-        if (waktuTersisa <= 0) {
+        if (window.waktuTersisa <= 0) {
 
             clearInterval(timerInterval);
             timerInterval = null;
