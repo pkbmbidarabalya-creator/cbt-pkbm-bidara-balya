@@ -831,18 +831,7 @@ async function mulaiUjianDenganMapel(ujian) {
 // =====================================
 
 function tampilkanSoal() {
-    // UPDATE HEADER SESUAI UJIAN YANG DIPILIH
-    if (window.ujianAktif) {
-        const elJudul = document.getElementById("judulMapel");
-        if (elJudul) elJudul.textContent = window.ujianAktif.mapel;
-
-        const elInfo = document.getElementById("infoUjian");
-        if (elInfo) {
-            elInfo.textContent = "Paket " + window.ujianAktif.paket +
-                " • " + window.ujianAktif.kelas +
-                " • Semester " + window.ujianAktif.semester;
-        }
-    }
+   
     const soal = window.soalUjian[window.nomorSoal];
 
     if (!soal) {
@@ -983,14 +972,14 @@ entriesPilihan.forEach(function(entry) {
             color:#172033;
             margin-bottom:4px;
         ">
-            <span id="judulMapel">MATEMATIKA</span>
+           <span id="judulMapel">${window.ujianAktif ? window.ujianAktif.mapel : ''}</span>
         </div>
 
         <div style="
             font-size:14px;
             color:#64748b;
         ">
-            <span id="infoUjian">Paket B • Kelas VIII • Semester 1</span>
+            <span id="infoUjian">${window.ujianAktif ? ('Paket ' + window.ujianAktif.paket + ' • ' + window.ujianAktif.kelas + ' • Semester ' + window.ujianAktif.semester) : ''}</span>
         </div>
     </div>
 
